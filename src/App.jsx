@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";npm install node-sass
 
 class App extends Component {
   render() {
