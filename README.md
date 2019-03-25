@@ -32,4 +32,6 @@ We're following [gitflow](https://www.atlassian.com/git/tutorials/comparing-work
 
 Please let collaborators know what you are working on to avoid duplications.<br/>
 
-Also take a look at these project management guidelines which I'm using. Make sure there is one issue for the feature that you are working on.<br/>
+Also take a look at these [project management guidelines](https://github.com/danivijay/github-project-management) which I'm using. It contains some good practices and naming conventions.
+
+**Make sure there is an issue for every feature that you are working on.**<br/>
