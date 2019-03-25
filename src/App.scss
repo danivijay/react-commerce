@@ -1,33 +1,60 @@
 .App {
-  text-align: center;
+      text-align: center;
+}
+*,
+*::before,
+*::after {
+      box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+// breakpoints map
+$breakpoints: (
+      xs: 32rem,
+      sm: 48rem,
+      md: 72rem,
+      lg: 96rem,
+      xl: 102rem,
+      xx: 120rem,
+);
+
+// media query mixin
+@mixin break($size) {
+      @media (min-width: map-get($breakpoints, $size)) {
+            @content;
+      }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+// number of columns variable
+$items: 12;
+
+// grid container
+.grid {
+      display: flex;
+      flex-flow: row wrap;
+      margin-bottom: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+// grid item
+.grid__item {
+      padding: 0.5rem;
+
+      &:nth-child(even) {
+            background-color: #eee;
+      }
+
+      &:nth-child(odd) {
+            background-color: #ddd;
+      }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+// loop over the breakpoints
+@each $key, $value in $breakpoints {
+      @for $i from 1 through $items {
+            .grid__item--#{$key}-span-#{$i} {
+                  flex: 0 0 100%;
+                  @include break($key) {
+                        flex: 0 0 #{$i / $items * 100%};
+                  }
+            }
+      }
 }
