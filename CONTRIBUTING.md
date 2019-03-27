@@ -1,8 +1,8 @@
 # Contribution Guide
 
-We're following [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). **Always create new branch** and use it to create PRs. In most cases you'll be creating _features_ or _bugfixes_, so don't forget for add prefixes for the branches (_eg:_ `feature/your-branch` or `bugfix/your-branch`).<br/>
+We're following [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). **Always create new branch** and use it to create PRs. In most cases you'll be creating _features_ or _bugfixes_, so don't forget to add prefixes for the branches (_eg:_ `feature/your-branch` or `bugfix/your-branch`).<br/>
 
-> Tip: if you are using **VSCode**, making use of [gitflow plugin](https://marketplace.visualstudio.com/items?itemName=vector-of-bool.gitflow) will ease your work (similer plugins may available to other IDEs)
+> Tip: if you are using **VSCode**, making use of [gitflow plugin](https://marketplace.visualstudio.com/items?itemName=vector-of-bool.gitflow) will ease your work (similer plugins may available for other IDEs)
 
 Take a look at [project management guidelines](https://github.com/danivijay/github-project-management) that we're following for best practices and naming conventions.
 
