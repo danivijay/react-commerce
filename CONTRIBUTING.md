@@ -9,3 +9,5 @@ Please let collaborators know what you are working on to avoid duplications.<br/
 Also take a look at these [project management guidelines](https://github.com/danivijay/github-project-management) which I'm using. It contains some good practices and naming conventions.
 
 **Make sure there is an issue for every feature that you are working on.**<br/>
+
+Please take a look at **[Project Wiki](https://github.com/danivijay/react-commerce/wiki)** to know more!
