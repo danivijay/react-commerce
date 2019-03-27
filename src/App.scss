@@ -35,17 +35,17 @@ $items: 12;
 }
 
 // grid item
-.grid__item {
-      padding: 0.5rem;
+// .grid__item {
+//       padding: 0.5rem;
 
-      &:nth-child(even) {
-            background-color: #eee;
-      }
+//       &:nth-child(even) {
+//             background-color: #eee;
+//       }
 
-      &:nth-child(odd) {
-            background-color: #ddd;
-      }
-}
+//       &:nth-child(odd) {
+//             background-color: #ddd;
+//       }
+// }
 
 // loop over the breakpoints
 @each $key, $value in $breakpoints {
