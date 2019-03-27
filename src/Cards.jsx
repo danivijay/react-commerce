@@ -6,7 +6,7 @@ const Cards = () => {
             <div class="cards">
                   <article class="card">
                         <div class="card__top">
-                              <img src="https://picsum.photos/250/200" alt="" />
+                              <img src="https://picsum.photos/250/200?random" alt="" />
                         </div>
                         <div class="card__bottom">
                               <h1 class="card__heading">Item name</h1>
