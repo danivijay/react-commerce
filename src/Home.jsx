@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.scss';
+import Cards from './Cards';
 
 const Home = () => {
       return (
             <div class="grid">
-                  <div class="grid__item grid__item--sm-span-4">sm-4-1</div>
-                  <div class="grid__item grid__item--sm-span-4">sm-4-2</div>
-                  <div class="grid__item grid__item--sm-span-4">sm-4-3</div>
+                  <div class="grid__item grid__item--sm-span-4">
+                        <Cards />
+                  </div>
+                  <div class="grid__item grid__item--sm-span-4">
+                        <Cards />
+                  </div>
+                  <div class="grid__item grid__item--sm-span-4">
+                        <Cards />
+                  </div>
             </div>
       );
 };
