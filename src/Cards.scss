@@ -67,11 +67,13 @@ body {
             background: #1de9b6;
             color: #5f6d7d;
             padding: 20px 20px 30px;
+            text-align: left;
       }
       &__footer {
             background: #1de9b6;
             display: flex;
             padding: 10px 10px 10px;
+            justify-content: center;
             // padding-left: 5px;
             //padding-right: 5px;
             // margin-left: -10px;
