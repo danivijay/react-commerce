@@ -26,4 +26,4 @@ npm run build
 
 # Contribution Guide
 
-Refer **[CONTRIBUTION GUIDE](CONTRIBUTING.md)**
+_Refer:_ **[Contribution Guide Section](CONTRIBUTING.md)**
