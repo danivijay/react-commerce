@@ -1,82 +1,81 @@
 * {
-      box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-      margin: 0;
+    margin: 0;
 }
 
 footer {
-      text-align: center;
-      background: #2196f3;
+    text-align: center;
+    background: #000;
+    border-top: solid 1px #000;
 }
 
 .footer__list {
-      // display: inline-block;
-      display: block;
-      font-size: 1.2rem;
-      float: center;
+    // display: inline-block;
+    display: block;
+    font-size: 1.2rem;
+    float: center;
 }
 .footer__box {
-      display: block;
-      //padding: 1em;
-      margin-top: 0.25em;
+    display: block;
+    //padding: 1em;
 
-      @media screen and (min-width: 768px) {
-            display: inline-block;
-            vertical-align: top;
-            //width: 32%;
-            //padding: 2em;
-            margin: 0 0 0.25em 0;
-      }
+    @media screen and (min-width: 768px) {
+        display: inline-block;
+        vertical-align: top;
+        //width: 32%;
+        //padding: 2em;
+    }
 
-      h2,
-      p,
-      a {
-            text-align: left;
-      }
+    h2,
+    p,
+    a {
+        text-align: left;
+    }
 
-      h2 {
-            text-transform: uppercase;
-      }
+    h2 {
+        text-transform: uppercase;
+    }
 }
 
 .footer__box:first-child a {
-      display: inline-block;
+    display: inline-block;
 
-      img {
-            max-width: 2em;
-            border-radius: 50%;
-      }
+    img {
+        max-width: 2em;
+        border-radius: 50%;
+    }
 
-      &:last-child {
-            width: auto;
-      }
+    &:last-child {
+        width: auto;
+    }
 }
 
 .footer__box:nth-child(2) {
-      p {
-            padding-left: 0.75em;
-            // margin-left: 1em;
-            position: relative;
+    p {
+        padding-left: 0.75em;
+        // margin-left: 1em;
+        position: relative;
 
-            &:before {
-                  position: absolute;
-                  content: '';
-                  width: 1em;
-                  height: 1em;
-                  right: 100%;
-                  border: solid 0.1em #eee;
-                  border-radius: 50%;
-                  display: inline-block;
-            }
+        &:before {
+            position: absolute;
+            content: '';
+            width: 1em;
+            height: 1em;
+            right: 100%;
+            border: solid 0.1em #eee;
+            border-radius: 50%;
+            display: inline-block;
+        }
 
-            &:first-of-type:before {
-                  background: #aba;
-            }
+        &:first-of-type:before {
+            background: #aba;
+        }
 
-            &:last-of-type:before {
-                  background: #bab;
-            }
-      }
+        &:last-of-type:before {
+            background: #bab;
+        }
+    }
 }
