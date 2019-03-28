@@ -1,5 +1,6 @@
 import React from 'react';
 import './Cards.scss';
+import '../../App.scss';
 
 const Cards = () => {
     return (
@@ -10,12 +11,11 @@ const Cards = () => {
                 </div>
                 <div class="card__bottom">
                     <h1 class="card__heading">Item name</h1>
-                    <p>item description</p>
+                    <h1 class="card__description">Price</h1>
                 </div>
                 <div class="card__footer">
-                    <a href="/" class="btn btn--pad-20 btn--primary">
-                        Regular button
-                    </a>
+                    <input type="number" name="quantity" min="1" value="1" />
+
                     <a
                         href="/"
                         class="btn btn--pad-20 btn--uppercase btn--secondary"

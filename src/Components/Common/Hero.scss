@@ -1,0 +1,28 @@
+.hero {
+    background: url('https://picsum.photos/3000x2000/?random') 50% 0 / cover
+        no-repeat;
+    padding-top: 20%;
+}
+.hero__wrapper {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1040px;
+    min-height: 100%;
+    margin-top: 20;
+    z-index: 2;
+}
+
+.hero__content {
+    text-align: left;
+    padding: 60px 20px;
+}
+
+@media (min-width: 1000px) {
+    .hero {
+        padding-top: 0;
+    }
+
+    .hero__wrapper {
+        padding: 0 575px 0 35px;
+    }
+}
