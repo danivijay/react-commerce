@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './Home';
-import Navbar from './Navbar';
-import Cart from './Cart';
-import Footer from './Footer';
-import Cards from './Cards';
+import Navbar from './Components/Common/Navbar';
+import Home from './Components/Pages/Home';
+import Cart from './Components/Pages/Cart';
+import Footer from './Components/Common/Footer';
 class App extends Component {
-      render() {
-            return (
-                  <div className="App">
-                        <Navbar />
-                        <Router>
-                              <switch>
-                                    <Route path="/" exact component={Home} />
-                                    <Route path="/cart" exact component={Cart} />
-                                    <Route path="/c" exact component={Cards} />
-                              </switch>
-                        </Router>
-                        <Footer />
-                  </div>
-            );
-      }
+    render() {
+        return (
+            <div className="App">
+                <Navbar />
+                <Router>
+                    <switch>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/cart" exact component={Cart} />
+                    </switch>
+                </Router>
+                <Footer />
+            </div>
+        );
+    }
 }
 
 export default App;
