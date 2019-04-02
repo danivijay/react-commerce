@@ -11,15 +11,23 @@ body {
 }
 
 .smallbtn {
-    background-image: url(https://picsum.photos/70);
-    width: 40px;
-    height: 20px;
+    //background-image: url(https://picsum.photos/70);
 
+    width: 24px;
+    height: 20px;
     text-decoration: none;
     display: flex;
     border: solid 1px #000;
     padding-top: 1.5px;
     padding-bottom: 1.5px;
+    text-align: center;
+
+    &--inc {
+        background-image: url(https://i.postimg.cc/FKK7mZKy/iconfinder-arrow-up-01-186407.png);
+    }
+    &--dec {
+        background-image: url(https://i.postimg.cc/cCzVgd71/iconfinder-arrow-down-01-186411.png);
+    }
 }
 
 .btn {

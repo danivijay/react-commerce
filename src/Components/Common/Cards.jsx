@@ -37,11 +37,11 @@ const Cards = () => {
                         </div>
                         <div class="grid__item grid__item--sm-span-1">
                             <button
-                                class="smallbtn"
+                                class="smallbtn smallbtn--inc"
                                 onClick={handleQuantityIncrement}
                             />
                             <button
-                                class="smallbtn"
+                                class="smallbtn smallbtn--dec"
                                 onClick={handleQuantityDecrement}
                             />
                         </div>
