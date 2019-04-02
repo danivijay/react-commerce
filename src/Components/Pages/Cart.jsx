@@ -5,13 +5,13 @@ const Cart = () => {
         <div class="grid">
             <div class="grid__item grid__item--sm-span-6">
                 <input
-                    class="input"
+                    class="input1"
                     type="text"
                     name="name"
                     placeholder="Name"
                 />
                 <textarea
-                    class="input"
+                    class="input1"
                     type="text"
                     rows="10"
                     name="Address"
@@ -19,7 +19,7 @@ const Cart = () => {
                     fontsize="15px"
                 />
 
-                <button class="btn">Checkout</button>
+                <button class="btn1">Checkout</button>
             </div>
             <div class="grid__item grid__item--sm-span-6">
                 <article class="card">
