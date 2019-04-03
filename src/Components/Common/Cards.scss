@@ -1,6 +1,35 @@
 body {
     margin: 0;
 }
+
+.input {
+    display: flex;
+    justify-content: center;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    text-align: center;
+}
+
+.smallbtn {
+    //background-image: url(https://picsum.photos/70);
+
+    width: 24px;
+    height: 20px;
+    text-decoration: none;
+    display: flex;
+    border: solid 1px #000;
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+    text-align: center;
+
+    &--inc {
+        background-image: url(https://i.postimg.cc/FKK7mZKy/iconfinder-arrow-up-01-186407.png);
+    }
+    &--dec {
+        background-image: url(https://i.postimg.cc/cCzVgd71/iconfinder-arrow-down-01-186411.png);
+    }
+}
+
 .btn {
     background: #fff;
     color: #000;
@@ -78,7 +107,7 @@ body {
     &__footer {
         background: #fff;
         border: solid 1px #000;
-        display: flex;
+        //display: flex;
         padding: 10px 10px 10px;
         // justify-content: center;
         // padding-left: 5px;
@@ -89,9 +118,9 @@ body {
         &--content-right {
             justify-content: flex-end;
         }
-        > .btn {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
+        // > .btn {
+        //     margin-left: 5px;
+        //     margin-right: 5px;
+        // }
     }
 }
