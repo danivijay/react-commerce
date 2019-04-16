@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Cards.scss';
 import '../../App.scss';
 
-const Cards = () => {
+const Cards = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
 
     const handleQuantityIncrement = () => {
@@ -22,8 +22,8 @@ const Cards = () => {
                     <img src="https://picsum.photos/250/200?random" alt="" />
                 </div>
                 <div class="card__bottom">
-                    <h1 class="card__heading">Item name</h1>
-                    <h1 class="card__description">Price</h1>
+                    <h1 class="card__heading">{product.name}</h1>
+                    <h1 class="card__description">{product.price}</h1>
                 </div>
                 <div class="card__footer">
                     <div class="grid">
