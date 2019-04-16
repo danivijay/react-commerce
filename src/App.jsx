@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Components/Common/Navbar';
 import Home from './Components/Pages/Home';
 import Cart from './Components/Pages/Cart';
@@ -9,6 +9,7 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import Login from './Components/Pages/Login';
 
 const cache = new InMemoryCache();
 
@@ -34,10 +35,11 @@ class App extends Component {
                     <div className="wrapper">
                         <Navbar />
                         <Router>
-                            <switch>
+                            <Switch>
                                 <Route path="/" exact component={Home} />
                                 <Route path="/cart" exact component={Cart} />
-                            </switch>
+                                <Route path="/login" exact component={Login} />
+                            </Switch>
                         </Router>
                     </div>
                     <Footer />
