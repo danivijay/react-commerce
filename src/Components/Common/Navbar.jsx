@@ -3,20 +3,20 @@ import './Navbar.scss';
 
 const Navbar = () => {
     return (
-        <div class="menu cf">
-            <a href="/" class="menu__trigger js-trigger">
+        <div className="menu cf">
+            <a href="/" className="menu__trigger js-trigger">
                 <i>Logo</i>
             </a>
 
-            <ul class="menu__row">
-                <li class="menu__list">
-                    <a href="/cart" class="menu__link">
+            <ul className="menu__row">
+                <li className="menu__list">
+                    <a href="/cart" className="menu__link">
                         Login
                     </a>
                 </li>
 
-                <li class="menu__list">
-                    <a href="/cart" class="menu__link">
+                <li className="menu__list">
+                    <a href="/cart" className="menu__link">
                         Cart
                     </a>
                 </li>
