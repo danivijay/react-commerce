@@ -4,9 +4,9 @@ import './Footer.scss';
 const Footer = () => {
     return (
         <footer>
-            <div class="footer__box">
-                <li class="footer__list">
-                    <a href="/cart" class="menu__link">
+            <div className="footer__box">
+                <li className="footer__list">
+                    <a href="/cart" className="menu__link">
                         Lorem
                     </a>
                 </li>

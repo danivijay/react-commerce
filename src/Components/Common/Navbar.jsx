@@ -10,7 +10,7 @@ const Navbar = () => {
 
             <ul className="menu__row">
                 <li className="menu__list">
-                    <a href="/cart" className="menu__link">
+                    <a href="/login" className="menu__link">
                         Login
                     </a>
                 </li>

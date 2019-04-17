@@ -3,10 +3,10 @@ import './Navbar.scss';
 
 const Filterbar = (links) => {
     return (
-        <div class="menu cf">
-            <ul class="menu__row">
-                <li class="menu__list">
-                    <a href="/cart" class="menu__link">
+        <div className="menu cf">
+            <ul className="menu__row">
+                <li className="menu__list">
+                    <a href="/cart" className="menu__link">
                         Filter
                     </a>
                 </li>

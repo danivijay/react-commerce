@@ -10,6 +10,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import Login from './Components/Pages/Login';
+import AdminPanel from './Components/Pages/AdminPanel';
 
 const cache = new InMemoryCache();
 
@@ -39,6 +40,11 @@ class App extends Component {
                                 <Route path="/" exact component={Home} />
                                 <Route path="/cart" exact component={Cart} />
                                 <Route path="/login" exact component={Login} />
+                                <Route
+                                    path="/admin"
+                                    exact
+                                    component={AdminPanel}
+                                />
                             </Switch>
                         </Router>
                     </div>

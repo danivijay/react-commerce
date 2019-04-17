@@ -26,7 +26,7 @@ const Home = () => {
                     <div>
                         <Hero />
                         <Filterbar />
-                        <div class="grid">
+                        <div className="grid">
                             {data &&
                                 data.products &&
                                 data.products.map((product) => (
