@@ -6,9 +6,10 @@ import gql from 'graphql-tag';
 import { Formik } from 'formik';
 
 const LOGIN_MUTATION = gql`
-    mutation LoginMutation($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-            token
+    mutation LoginMutation($userName: String!, $password: String!) {
+        login(userName: $userName, password: $password) {
+            userName
+            password
         }
     }
 `;
@@ -19,7 +20,7 @@ const Login = () => {
             <div className="grid__item grid__item--sm-span-6">
                 <h1>Login</h1>
                 <Formik
-                    initialValues={{ email: '', password: '' }}
+                    initialValues={{ userName: '', password: '' }}
                     // validate={(values) => {
                     //     let errors = {};
                     //     if (!values.email) {
@@ -42,7 +43,7 @@ const Login = () => {
                     }}
                 >
                     {({
-                        values: { email, password },
+                        values: { userName, password },
                         errors,
                         touched,
                         handleChange,
@@ -53,15 +54,24 @@ const Login = () => {
                     }) => (
                         <Mutation
                             mutation={LOGIN_MUTATION}
-                            variables={{ email, password }}
+                            variables={{ userName, password }}
                             // onCompleted={(data) => this._confirm(data)}
+                            onCompleted={(data) => {
+                                if (
+                                    data.login.userName === 'admin' &&
+                                    data.login.password === 'ecart'
+                                ) {
+                                    console.log('Login:', 'Successful');
+                                    window.location = '/admin';
+                                }
+                            }}
                         >
                             {(mutation) => (
                                 <Fragment>
                                     <input
                                         className="input1"
                                         type="text"
-                                        name="email"
+                                        name="userName"
                                         placeholder="username/Email"
                                         onChange={handleChange}
                                     />
