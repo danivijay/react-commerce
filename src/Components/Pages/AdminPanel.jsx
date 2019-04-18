@@ -1,57 +1,55 @@
 import React from 'react';
 import './AdminPanel.scss';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const GET_TRANSACTIONS = gql`
+    {
+        transactions {
+            id
+            quantity
+            user_id
+            date
+            address_id
+            currency
+            status
+        }
+    }
+`;
+
 const AdminPanel = () => {
     return (
-        <table id="admintable">
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Quantity</th>
-                <th>Date</th>
-                <th>Price</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>Tony Stark</td>
-                <td>Stark Industries</td>
-                <td>2</td>
-                <td>04/18/2019</td>
-                <td>56</td>
-                <td>Success</td>
-            </tr>
-            <tr>
-                <td>Sherlock Holmes</td>
-                <td>221B Baker Street</td>
-                <td>1</td>
-                <td>04/17/2019</td>
-                <td>28</td>
-                <td>Success</td>
-            </tr>
-            <tr>
-                <td>Bruce Wayne</td>
-                <td>Gotham City</td>
-                <td>3</td>
-                <td>04/09/2019</td>
-                <td>84</td>
-                <td>Failed</td>
-            </tr>
-            <tr>
-                <td>Dexter Morgan</td>
-                <td>Miami</td>
-                <td>1</td>
-                <td>04/18/2019</td>
-                <td>28</td>
-                <td>Success</td>
-            </tr>
-            <tr>
-                <td>Bruce Wayne</td>
-                <td>Gotham City</td>
-                <td>3</td>
-                <td>04/09/2019</td>
-                <td>84</td>
-                <td>Failed</td>
-            </tr>
-        </table>
+        <Query query={GET_TRANSACTIONS}>
+            {({ data }) =>
+                console.log(data) || (
+                    <table id="admintable">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                            <th>currency</th>
+                            <th>Status</th>
+                        </tr>
+                        `{' '}
+                        {data &&
+                            data.transactions &&
+                            data.transactions.map((transaction) => (
+                                <tr>
+                                    <td>{transaction.user_id}</td>
+                                    <td>{transaction.address_id}</td>
+                                    <td>{transaction.quantity}</td>
+                                    <td>{transaction.date}</td>
+                                    <td>{transaction.price}</td>
+                                    <td>{transaction.currency}</td>
+                                    <td>{transaction.status}</td>
+                                </tr>
+                            ))}
+                    </table>
+                )
+            }
+        </Query>
     );
 };
 
