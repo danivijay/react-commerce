@@ -32,7 +32,6 @@ const AdminPanel = () => {
                             <th>currency</th>
                             <th>Status</th>
                         </tr>
-                        `{' '}
                         {data &&
                             data.transactions &&
                             data.transactions.map((transaction) => (
