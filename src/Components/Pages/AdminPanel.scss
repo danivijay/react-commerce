@@ -1,4 +1,8 @@
-#admintable {
+body {
+    margin: 0;
+}
+
+.admintable {
     font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 96%;
@@ -7,24 +11,28 @@
     margin-bottom: 2%;
 }
 
-#admintable td,
-#admintable th {
+.admintable td,
+.admintable th {
     // border: 1px solid #ddd;
     padding: 8px;
 }
 
-#admintable tr:nth-child(even) {
+.admintable tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#admintable tr:hover {
+.admintable tr:hover {
     background-color: #ddd;
 }
 
-#admintable th {
+.admintable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
     background-color: #020202;
     color: white;
+}
+
+.heading {
+    text-align: center;
 }
