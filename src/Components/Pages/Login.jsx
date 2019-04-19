@@ -14,6 +14,20 @@ const LOGIN_MUTATION = gql`
     }
 `;
 
+const SIGNUP_MUTATION = gql`
+    mutation Createuser(
+        $userName: String!
+        $password: String!
+        $email: String!
+    ) {
+        user(userName: $userName, password: $password, email: $email) {
+            userName
+            email
+            password
+        }
+    }
+`;
+
 const Login = () => {
     return (
         <div className="grid">
@@ -93,31 +107,65 @@ const Login = () => {
             </div>
             <div className="grid__item grid__item--sm-span-6">
                 <h1>Signup</h1>
-                <input
-                    className="input1"
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                />
-                <input
-                    className="input1"
-                    type="text"
-                    name="name"
-                    placeholder="Email"
-                />
-                <input
-                    className="input1"
-                    type="text"
-                    name="name"
-                    placeholder="Password"
-                />
-                <input
-                    className="input1"
-                    type="text"
-                    name="name"
-                    placeholder="Confirm Password"
-                />
-                <button className="btn1">Signup</button>
+                <Formik
+                    initialValues={{ userName: '', password: '', email: '' }}
+                    onSubmit={(values, { setSubmitting }) => {
+                        console.log('submitted values::', values);
+                    }}
+                >
+                    {({
+                        values: { userName, password, email },
+                        errors,
+                        touched,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                        /* and other goodies */
+                    }) => (
+                        <Mutation
+                            mutation={SIGNUP_MUTATION}
+                            variables={{ userName, password, email }}
+                            onCompleted={(data) => console.log('Data:', data)}
+                        >
+                            {(mutation) => (
+                                <Fragment>
+                                    <input
+                                        className="input1"
+                                        type="text"
+                                        name="userName"
+                                        placeholder="Name"
+                                        onChange={handleChange}
+                                    />
+                                    <input
+                                        className="input1"
+                                        type="text"
+                                        name="email"
+                                        placeholder="Email"
+                                        onChange={handleChange}
+                                    />
+                                    <input
+                                        className="input1"
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        onChange={handleChange}
+                                    />
+                                    <input
+                                        className="input1"
+                                        type="password"
+                                        name="password2"
+                                        placeholder="Confirm Password"
+                                        onChange={handleChange}
+                                    />
+                                    <button className="btn1" onClick={mutation}>
+                                        Signup
+                                    </button>
+                                </Fragment>
+                            )}
+                        </Mutation>
+                    )}
+                </Formik>
             </div>
         </div>
     );
