@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+}
+
+.input {
+    display: flex;
+    justify-content: center;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    text-align: center;
+}
+
+.smallbtn {
+    //background-image: url(https://picsum.photos/70);
+
+    width: 24px;
+    height: 20px;
+    text-decoration: none;
+    display: flex;
+    border: solid 1px #000;
+    padding-top: 1.5px;
+    padding-bottom: 1.5px;
+    text-align: center;
+
+    &--inc {
+        background-image: url(https://i.postimg.cc/FKK7mZKy/iconfinder-arrow-up-01-186407.png);
+    }
+    &--dec {
+        background-image: url(https://i.postimg.cc/cCzVgd71/iconfinder-arrow-down-01-186411.png);
+    }
+}
+
+.btn {
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    border: solid 1px #000;
+    font-size: 15px;
+    line-height: 22px;
+    color: #000;
+    justify-content: center;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    text-align: center;
+    &--pad-20 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    &--pad-25 {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    &--awap {
+        flex: 1 1 auto;
+    }
+    &--right-float {
+        float: right;
+    }
+    &--uppercase {
+        text-transform: uppercase;
+    }
+    &--secondary {
+        background: #000;
+        color: rgb(255, 255, 255);
+        box-shadow: 0 2px 4px 0 rgba(0, 28, 61, 0.3);
+    }
+    &--tertiary {
+        background: #1e79e4;
+        color: rgb(17, 16, 16);
+        box-shadow: 0 2px 4px 0 rgba(30, 121, 228, 0.3);
+    }
+}
+
+.cards {
+    display: flex;
+    // border: 1px #fff solid;
+    padding: 10px;
+    flex-direction: column;
+    // flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 1 auto;
+    // border: 1px red solid;
+    margin: 10px;
+
+    &__top {
+        background: #001c3d;
+        display: flex;
+        flex-direction: column;
+    }
+    &__heading {
+        color: #001c3d;
+    }
+    &__description {
+        color: #001c3d;
+        text-align: right;
+    }
+    &__bottom {
+        background: #fff;
+        border: solid 1px #000;
+        color: #fff;
+        padding: 20px 20px 30px;
+        text-align: left;
+    }
+    &__footer {
+        background: #fff;
+        border: solid 1px #000;
+        //display: flex;
+        padding: 10px 10px 10px;
+        // justify-content: center;
+        // padding-left: 5px;
+        //padding-right: 5px;
+        // margin-left: -10px;
+        // margin-right: -10px;
+        margin-bottom: 10px;
+        &--content-right {
+            justify-content: flex-end;
+        }
+        // > .btn {
+        //     margin-left: 5px;
+        //     margin-right: 5px;
+        // }
+    }
+}

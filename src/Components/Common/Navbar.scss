@@ -1,0 +1,122 @@
+.menu {
+    //background: #0b2027;
+    background: #000;
+    border-bottom: solid 1px #000;
+}
+
+.menu__trigger {
+    // background: #16414f;
+    background: #000;
+    float: left;
+    padding: 1.3rem 0;
+    width: 10%;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+@media (min-width: 30em) and (max-width: 40em) {
+    .menu__trigger {
+        width: 15%;
+    }
+}
+@media (max-width: 30em) {
+    .menu__trigger {
+        width: 15%;
+    }
+}
+
+.menu__trigger--active {
+    background: salmon;
+}
+
+.menu__row {
+    //width: 90%;
+    font-size: 0;
+}
+
+.menu__list {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 1.2rem;
+    float: right;
+}
+
+.menu__link {
+    display: block;
+    text-decoration: none;
+    padding: 1.5rem;
+    color: white;
+    font-weight: 500;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+@media (max-width: 30em) {
+    .menu__link {
+        padding: 1.5rem 0.6rem;
+    }
+}
+.menu__link:hover {
+    // background: #16414f;
+    background: #fff;
+    color: #000;
+}
+
+.menu__dropdown {
+    padding: 1.6rem 0;
+    background: salmon;
+    display: none;
+}
+
+.menu__col {
+    width: 33.333%;
+    float: left;
+    padding: 2.5rem 1.5rem;
+}
+@media (min-width: 40em) and (max-width: 50em) {
+    .menu__col {
+        width: 100%;
+    }
+}
+@media (min-width: 30em) and (max-width: 40em) {
+    .menu__col {
+        width: 100%;
+    }
+}
+@media (max-width: 30em) {
+    .menu__col {
+        width: 100%;
+    }
+}
+
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
+
+body {
+    font-family: 'Raleway';
+}
+
+.cf:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+h2 {
+    color: white;
+    font-size: 1.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 2vh;
+}
+
+p {
+    line-height: 1.5;
+    color: #fafafa;
+    font-weight: 500;
+}
