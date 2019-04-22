@@ -36,6 +36,8 @@ const GET_USER_NAME = gql`
     }
 `;
 
+const uname = '5cb9717b34a03d20b0d6ff1e';
+
 const AdminPanel = () => {
     return (
         <Fragment>
@@ -71,7 +73,7 @@ const AdminPanel = () => {
                                                         query={GET_USER_NAME}
                                                         variables={{
                                                             id:
-                                                                '5cb971b334a03d20b0d6ff1f',
+                                                                transaction.user_id,
                                                         }}
                                                     >
                                                         {({ data: userdata }) =>
