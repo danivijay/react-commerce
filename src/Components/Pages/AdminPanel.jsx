@@ -29,19 +29,21 @@ const GET_PRODUCTS = gql`
 `;
 
 const GET_USER_NAME = gql`
-    {
-        user(id: "5cb9714e34a03d20b0d6ff1d") {
+    query user($id: String!) {
+        user(id: $id) {
             userName
         }
     }
 `;
 
+const uname = '5cb9717b34a03d20b0d6ff1e';
+
 const AdminPanel = () => {
     return (
         <Fragment>
             <Query query={GET_TRANSACTIONS}>
-                {({ data }) =>
-                    console.log(data) || (
+                {({ data: dat }) =>
+                    console.log(dat) || (
                         <Fragment>
                             <h1>Transactions</h1>
                             <table className="admintable">
@@ -59,13 +61,44 @@ const AdminPanel = () => {
                                         <th>currency</th>
                                         <th>Status</th>
                                     </tr>
-                                    {data &&
-                                        data.transactions &&
-                                        data.transactions.map((transaction) => (
+                                    {dat &&
+                                        dat.transactions &&
+                                        dat.transactions.map((transaction) => (
                                             <tr>
                                                 <td>{transaction.id}</td>
                                                 <td>{transaction.user_id}</td>
-                                                <td>userName</td>
+
+                                                <Fragment>
+                                                    <Query
+                                                        query={GET_USER_NAME}
+                                                        variables={{
+                                                            id:
+                                                                transaction.user_id,
+                                                        }}
+                                                    >
+                                                        {({ data: userdata }) =>
+                                                            console.log(
+                                                                'userd::',
+                                                                userdata,
+                                                            ) || (
+                                                                <Fragment>
+                                                                    {userdata &&
+                                                                        userdata.user && (
+                                                                            <Fragment>
+                                                                                <td>
+                                                                                    {
+                                                                                        userdata
+                                                                                            .user
+                                                                                            .userName
+                                                                                    }
+                                                                                </td>
+                                                                            </Fragment>
+                                                                        )}
+                                                                </Fragment>
+                                                            )
+                                                        }
+                                                    </Query>
+                                                </Fragment>
                                                 <td>productname</td>
                                                 <td>
                                                     {transaction.product_id}
