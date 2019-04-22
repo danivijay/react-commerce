@@ -11,6 +11,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 import Login from './Components/Pages/Login';
 import AdminPanel from './Components/Pages/AdminPanel';
+import AddorEdit from './Components/Pages/AddorEdit';
 
 const cache = new InMemoryCache();
 
@@ -44,6 +45,11 @@ class App extends Component {
                                     path="/admin"
                                     exact
                                     component={AdminPanel}
+                                />
+                                <Route
+                                    path="/addoredit"
+                                    exact
+                                    component={AddorEdit}
                                 />
                             </Switch>
                         </Router>

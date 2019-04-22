@@ -108,7 +108,9 @@ const AdminPanel = () => {
                                                 <td>{product.price}</td>
                                                 <td>{product.stock}</td>
                                                 <td>
-                                                    <button>Add</button>
+                                                    <a href="/addoredit">
+                                                        <button>Add</button>
+                                                    </a>
                                                     <button>Delete</button>
                                                 </td>
                                             </tr>
