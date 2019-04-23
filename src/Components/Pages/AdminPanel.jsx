@@ -36,7 +36,13 @@ const GET_USER_NAME = gql`
     }
 `;
 
-const uname = '5cb9717b34a03d20b0d6ff1e';
+const GET_PRODUCT_NAME = gql`
+    query product($id: String!) {
+        product(id: $id) {
+            name
+        }
+    }
+`;
 
 const AdminPanel = () => {
     return (
@@ -99,7 +105,41 @@ const AdminPanel = () => {
                                                         }
                                                     </Query>
                                                 </Fragment>
-                                                <td>productname</td>
+
+                                                <Fragment>
+                                                    <Query
+                                                        query={GET_PRODUCT_NAME}
+                                                        variables={{
+                                                            id:
+                                                                transaction.product_id,
+                                                        }}
+                                                    >
+                                                        {({
+                                                            data: productdata,
+                                                        }) =>
+                                                            console.log(
+                                                                'userd::',
+                                                                productdata,
+                                                            ) || (
+                                                                <Fragment>
+                                                                    {productdata &&
+                                                                        productdata.product && (
+                                                                            <Fragment>
+                                                                                <td>
+                                                                                    {
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .name
+                                                                                    }
+                                                                                </td>
+                                                                            </Fragment>
+                                                                        )}
+                                                                </Fragment>
+                                                            )
+                                                        }
+                                                    </Query>
+                                                </Fragment>
+
                                                 <td>
                                                     {transaction.product_id}
                                                 </td>
