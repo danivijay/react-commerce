@@ -32,6 +32,7 @@ const GET_USER_NAME = gql`
     query user($id: String!) {
         user(id: $id) {
             userName
+            address
         }
     }
 `;
@@ -40,6 +41,7 @@ const GET_PRODUCT_NAME = gql`
     query product($id: String!) {
         product(id: $id) {
             name
+            price
         }
     }
 `;
@@ -58,12 +60,12 @@ const AdminPanel = () => {
                                         <th>Transaction ID</th>
                                         <th>User ID</th>
                                         <th>User Name</th>
-                                        <th>Product</th>
-                                        <th>Product ID</th>
                                         <th>Address</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Product ID</th>
                                         <th>Quantity</th>
                                         <th>Date</th>
-                                        <th>Price</th>
                                         <th>currency</th>
                                         <th>Status</th>
                                     </tr>
@@ -96,6 +98,13 @@ const AdminPanel = () => {
                                                                                         userdata
                                                                                             .user
                                                                                             .userName
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        userdata
+                                                                                            .user
+                                                                                            .address
                                                                                     }
                                                                                 </td>
                                                                             </Fragment>
@@ -132,6 +141,18 @@ const AdminPanel = () => {
                                                                                             .name
                                                                                     }
                                                                                 </td>
+                                                                                <td>
+                                                                                    {productdata
+                                                                                        .product
+                                                                                        .price +
+                                                                                        ' * ' +
+                                                                                        transaction.quantity +
+                                                                                        ' = ' +
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .price *
+                                                                                            transaction.quantity}
+                                                                                </td>
                                                                             </Fragment>
                                                                         )}
                                                                 </Fragment>
@@ -143,10 +164,8 @@ const AdminPanel = () => {
                                                 <td>
                                                     {transaction.product_id}
                                                 </td>
-                                                <td>Address</td>
                                                 <td>{transaction.quantity}</td>
                                                 <td>{transaction.date}</td>
-                                                <td>price</td>
                                                 <td>{transaction.currency}</td>
                                                 <td>{transaction.status}</td>
                                             </tr>
