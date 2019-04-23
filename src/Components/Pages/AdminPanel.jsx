@@ -32,11 +32,19 @@ const GET_USER_NAME = gql`
     query user($id: String!) {
         user(id: $id) {
             userName
+            address
         }
     }
 `;
 
-const uname = '5cb9717b34a03d20b0d6ff1e';
+const GET_PRODUCT_NAME = gql`
+    query product($id: String!) {
+        product(id: $id) {
+            name
+            price
+        }
+    }
+`;
 
 const AdminPanel = () => {
     return (
@@ -52,12 +60,12 @@ const AdminPanel = () => {
                                         <th>Transaction ID</th>
                                         <th>User ID</th>
                                         <th>User Name</th>
-                                        <th>Product</th>
-                                        <th>Product ID</th>
                                         <th>Address</th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Product ID</th>
                                         <th>Quantity</th>
                                         <th>Date</th>
-                                        <th>Price</th>
                                         <th>currency</th>
                                         <th>Status</th>
                                     </tr>
@@ -92,6 +100,13 @@ const AdminPanel = () => {
                                                                                             .userName
                                                                                     }
                                                                                 </td>
+                                                                                <td>
+                                                                                    {
+                                                                                        userdata
+                                                                                            .user
+                                                                                            .address
+                                                                                    }
+                                                                                </td>
                                                                             </Fragment>
                                                                         )}
                                                                 </Fragment>
@@ -99,14 +114,58 @@ const AdminPanel = () => {
                                                         }
                                                     </Query>
                                                 </Fragment>
-                                                <td>productname</td>
+
+                                                <Fragment>
+                                                    <Query
+                                                        query={GET_PRODUCT_NAME}
+                                                        variables={{
+                                                            id:
+                                                                transaction.product_id,
+                                                        }}
+                                                    >
+                                                        {({
+                                                            data: productdata,
+                                                        }) =>
+                                                            console.log(
+                                                                'userd::',
+                                                                productdata,
+                                                            ) || (
+                                                                <Fragment>
+                                                                    {productdata &&
+                                                                        productdata.product && (
+                                                                            <Fragment>
+                                                                                <td>
+                                                                                    {
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .name
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    {productdata
+                                                                                        .product
+                                                                                        .price +
+                                                                                        ' * ' +
+                                                                                        transaction.quantity +
+                                                                                        ' = ' +
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .price *
+                                                                                            transaction.quantity}
+                                                                                </td>
+                                                                            </Fragment>
+                                                                        )}
+                                                                </Fragment>
+                                                            )
+                                                        }
+                                                    </Query>
+                                                </Fragment>
+
                                                 <td>
                                                     {transaction.product_id}
                                                 </td>
-                                                <td>Address</td>
                                                 <td>{transaction.quantity}</td>
                                                 <td>{transaction.date}</td>
-                                                <td>price</td>
                                                 <td>{transaction.currency}</td>
                                                 <td>{transaction.status}</td>
                                             </tr>
@@ -144,7 +203,21 @@ const AdminPanel = () => {
                                                     <a href="/addoredit">
                                                         <button>Add</button>
                                                     </a>
-                                                    <button>Delete</button>
+                                                    <button
+                                                        onClick={() => {
+                                                            if (
+                                                                window.confirm(
+                                                                    'Are you sure want to delete the product?',
+                                                                ) &&
+                                                                window.alert(
+                                                                    'deleted',
+                                                                )
+                                                                //product delete logic
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
