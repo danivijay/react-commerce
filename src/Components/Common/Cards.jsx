@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './Cards.scss';
 import '../../App.scss';
 
@@ -47,12 +48,18 @@ const Cards = ({ product }) => {
                         </div>
 
                         <div class="grid__item grid__item--sm-span-5">
-                            <a
-                                href="/"
+                            <button
+                                onClick={() => {
+                                    if (
+                                        window.alert(
+                                            'Product Successfully Added to the cart',
+                                        )
+                                    );
+                                }}
                                 class="btn btn--pad-20 btn--uppercase btn--secondary btn--right-float"
                             >
                                 Add to Cart
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

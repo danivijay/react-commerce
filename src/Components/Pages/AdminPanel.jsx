@@ -203,7 +203,21 @@ const AdminPanel = () => {
                                                     <a href="/addoredit">
                                                         <button>Add</button>
                                                     </a>
-                                                    <button>Delete</button>
+                                                    <button
+                                                        onClick={() => {
+                                                            if (
+                                                                window.confirm(
+                                                                    'Are you sure want to delete the product?',
+                                                                ) &&
+                                                                window.alert(
+                                                                    'deleted',
+                                                                )
+                                                                //product delete logic
+                                                            );
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
