@@ -63,7 +63,7 @@ const AdminPanel = () => {
                                         <th>Address</th>
                                         <th>Product</th>
                                         <th>Price</th>
-                                        <th>Product ID</th>
+                                        {/* <th>Product ID</th> */}
                                         <th>Quantity</th>
                                         <th>Date</th>
                                         <th>currency</th>
@@ -161,9 +161,9 @@ const AdminPanel = () => {
                                                     </Query>
                                                 </Fragment>
 
-                                                <td>
+                                                {/* <td>
                                                     {transaction.product_id}
-                                                </td>
+                                                </td> */}
                                                 <td>{transaction.quantity}</td>
                                                 <td>{transaction.date}</td>
                                                 <td>{transaction.currency}</td>
@@ -185,8 +185,8 @@ const AdminPanel = () => {
                             <table className="admintable">
                                 <tbody>
                                     <tr>
-                                        <th>Product Name</th>
                                         <th>Product ID</th>
+                                        <th>Product Name</th>
                                         <th>Price</th>
                                         <th>Stock</th>
                                         <th>Actions</th>
@@ -195,8 +195,8 @@ const AdminPanel = () => {
                                         data.products &&
                                         data.products.map((product) => (
                                             <tr>
-                                                <td>{product.name}</td>
                                                 <td>{product.id}</td>
+                                                <td>{product.name}</td>
                                                 <td>{product.price}</td>
                                                 <td>{product.stock}</td>
                                                 <td>
@@ -207,10 +207,13 @@ const AdminPanel = () => {
                                                         onClick={() => {
                                                             if (
                                                                 window.confirm(
-                                                                    'Are you sure want to delete the product?',
+                                                                    'Are you sure to delete ' +
+                                                                        product.name +
+                                                                        '?',
                                                                 ) &&
                                                                 window.alert(
-                                                                    'deleted',
+                                                                    product.name +
+                                                                        ' has been deleted successfully',
                                                                 )
                                                                 //product delete logic
                                                             );

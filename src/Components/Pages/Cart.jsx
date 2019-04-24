@@ -1,5 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './cart.scss';
+import { Query, Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const GET_PRODUCT_NAME = gql`
+    query product($id: String!) {
+        product(id: $id) {
+            name
+            price
+        }
+    }
+`;
+
 const Cart = () => {
     return (
         <div class="grid">
@@ -24,17 +36,28 @@ const Cart = () => {
             <div class="grid__item grid__item--sm-span-6">
                 <article class="card">
                     <div class="card__bottom">
-                        <h1>Product1</h1>
-                        <h1>Qty</h1>
-                        <h1>Price</h1>
-                        <h1>...</h1>
-                        <h1>Product2</h1>
-                        <h1>Qty</h1>
-                        <h1>Price</h1>
-                        <h1>...</h1>
-                        <h1>Product1</h1>
-                        <h1>Qty</h1>
-                        <h1>Price</h1>
+                        <Fragment>
+                            <Query
+                                query={GET_PRODUCT_NAME}
+                                variables={{
+                                    id: '5cb96c65517ace1320f3790d',
+                                }}
+                            >
+                                {({ data: dat }) =>
+                                    console.log('product', dat) || (
+                                        <Fragment>
+                                            {dat && dat.product && (
+                                                <Fragment>
+                                                    <h1>{dat.product.name}</h1>
+                                                    <h1>Qty</h1>
+                                                    <h1>Price</h1>
+                                                </Fragment>
+                                            )}
+                                        </Fragment>
+                                    )
+                                }
+                            </Query>
+                        </Fragment>
                     </div>
                 </article>
             </div>
