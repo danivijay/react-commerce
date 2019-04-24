@@ -39,7 +39,10 @@ const AddorEdit = () => {
                         mutation={PRODUCT_MUTATION}
                         variables={{ name, price, stock }}
                         // onCompleted={(data) => this._confirm(data)}
-                        onCompleted={(data) => console.log('data::', data)}
+                        // onCompleted={(data) => console.log('data::', data)}
+                        onCompleted={(data) =>
+                            window.alert('Product has been added successfully')
+                        }
                     >
                         {(mutation) => (
                             <Fragment>
