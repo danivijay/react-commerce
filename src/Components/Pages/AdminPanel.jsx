@@ -46,6 +46,32 @@ const GET_PRODUCT_NAME = gql`
     }
 `;
 
+const DELETE_PRODUCT = gql`
+    query deleteproduct($id: String!) {
+        deleteproduct(id: $id) {
+            id
+            name
+            price
+            stock
+        }
+    }
+`;
+
+var PRODUCT_ID = '1';
+console.log('PRODUCT_ID::', PRODUCT_ID);
+
+const deleteproduct = (product_id) => {
+    return (
+        <Query
+            query={DELETE_PRODUCT}
+            variables={{
+                id: product_id,
+            }}
+        >
+            console.log("Deleted:", product_id);
+        </Query>
+    );
+};
 const AdminPanel = () => {
     return (
         <Fragment>
@@ -217,7 +243,7 @@ const AdminPanel = () => {
                                                     <a href="/addoredit">
                                                         <button>Add</button>
                                                     </a>
-                                                    <button
+                                                    {/* <button
                                                         onClick={() => {
                                                             if (
                                                                 window.confirm(
@@ -234,7 +260,31 @@ const AdminPanel = () => {
                                                         }}
                                                     >
                                                         Delete
-                                                    </button>
+                                                    </button> */}
+
+                                                    <Query
+                                                        query={DELETE_PRODUCT}
+                                                        variables={{
+                                                            id: PRODUCT_ID,
+                                                        }}
+                                                    >
+                                                        {({
+                                                            data,
+                                                            refetch,
+                                                        }) => (
+                                                            <button
+                                                                onClick={
+                                                                    <deleteproduct
+                                                                        product_id={
+                                                                            product.id
+                                                                        }
+                                                                    />
+                                                                }
+                                                            >
+                                                                Del
+                                                            </button>
+                                                        )}
+                                                    </Query>
                                                 </td>
                                             </tr>
                                         ))}
