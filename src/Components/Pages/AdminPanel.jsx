@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './AdminPanel.scss';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { ApolloConsumer } from 'react-apollo';
 
 const GET_TRANSACTIONS = gql`
     {
@@ -57,21 +58,6 @@ const DELETE_PRODUCT = gql`
     }
 `;
 
-var PRODUCT_ID = '1';
-console.log('PRODUCT_ID::', PRODUCT_ID);
-
-const deleteproduct = (product_id) => {
-    return (
-        <Query
-            query={DELETE_PRODUCT}
-            variables={{
-                id: product_id,
-            }}
-        >
-            console.log("Deleted:", product_id);
-        </Query>
-    );
-};
 const AdminPanel = () => {
     return (
         <Fragment>
@@ -243,48 +229,27 @@ const AdminPanel = () => {
                                                     <a href="/addoredit">
                                                         <button>Add</button>
                                                     </a>
-                                                    {/* <button
-                                                        onClick={() => {
-                                                            if (
-                                                                window.confirm(
-                                                                    'Are you sure to delete ' +
-                                                                        product.name +
-                                                                        '?',
-                                                                ) &&
-                                                                window.alert(
-                                                                    product.name +
-                                                                        ' has been deleted successfully',
-                                                                )
-                                                                //product delete logic
-                                                            );
-                                                        }}
-                                                    >
-                                                        Delete
-                                                    </button> */}
-
-                                                    <Query
-                                                        query={DELETE_PRODUCT}
-                                                        variables={{
-                                                            id: PRODUCT_ID,
-                                                        }}
-                                                    >
-                                                        {({
-                                                            data,
-                                                            refetch,
-                                                        }) => (
+                                                    <ApolloConsumer>
+                                                        {(client) => (
                                                             <button
-                                                                onClick={
-                                                                    <deleteproduct
-                                                                        product_id={
-                                                                            product.id
-                                                                        }
-                                                                    />
-                                                                }
+                                                                onClick={async () => {
+                                                                    const {
+                                                                        data,
+                                                                    } = await client.query(
+                                                                        {
+                                                                            query: DELETE_PRODUCT,
+                                                                            variables: {
+                                                                                id:
+                                                                                    product.id,
+                                                                            },
+                                                                        },
+                                                                    );
+                                                                }}
                                                             >
-                                                                Del
+                                                                Delete
                                                             </button>
                                                         )}
-                                                    </Query>
+                                                    </ApolloConsumer>
                                                 </td>
                                             </tr>
                                         ))}
