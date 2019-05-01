@@ -71,12 +71,13 @@ const Login = () => {
                             variables={{ userName, password }}
                             // onCompleted={(data) => this._confirm(data)}
                             onCompleted={(data) => {
-                                if (
-                                    data.login.userName === 'admin' &&
-                                    data.login.password === 'ecart'
-                                ) {
+                                if (data.login.userName === 'Success:true') {
                                     console.log('Login:', 'Successful');
                                     window.location = '/admin';
+                                } else {
+                                    window.alert(
+                                        'Incorrect username or password',
+                                    );
                                 }
                             }}
                         >

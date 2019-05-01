@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './AdminPanel.scss';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { ApolloConsumer } from 'react-apollo';
 
 const GET_TRANSACTIONS = gql`
     {
@@ -42,6 +43,17 @@ const GET_PRODUCT_NAME = gql`
         product(id: $id) {
             name
             price
+        }
+    }
+`;
+
+const DELETE_PRODUCT = gql`
+    query deleteproduct($id: String!) {
+        deleteproduct(id: $id) {
+            id
+            name
+            price
+            stock
         }
     }
 `;
@@ -132,29 +144,43 @@ const AdminPanel = () => {
                                                             ) || (
                                                                 <Fragment>
                                                                     {productdata &&
-                                                                        productdata.product && (
-                                                                            <Fragment>
-                                                                                <td>
-                                                                                    {
-                                                                                        productdata
-                                                                                            .product
-                                                                                            .name
-                                                                                    }
-                                                                                </td>
-                                                                                <td>
-                                                                                    {productdata
+                                                                    productdata.product &&
+                                                                    productdata
+                                                                        .product
+                                                                        .name ? (
+                                                                        <Fragment>
+                                                                            <td>
+                                                                                {
+                                                                                    productdata
                                                                                         .product
-                                                                                        .price +
-                                                                                        ' * ' +
-                                                                                        transaction.quantity +
-                                                                                        ' = ' +
-                                                                                        productdata
-                                                                                            .product
-                                                                                            .price *
-                                                                                            transaction.quantity}
-                                                                                </td>
-                                                                            </Fragment>
-                                                                        )}
+                                                                                        .name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {productdata
+                                                                                    .product
+                                                                                    .price +
+                                                                                    ' * ' +
+                                                                                    transaction.quantity +
+                                                                                    ' = ' +
+                                                                                    productdata
+                                                                                        .product
+                                                                                        .price *
+                                                                                        transaction.quantity}
+                                                                            </td>
+                                                                        </Fragment>
+                                                                    ) : (
+                                                                        <Fragment>
+                                                                            <td>
+                                                                                Deleted
+                                                                                Product
+                                                                            </td>
+                                                                            <td>
+                                                                                Deleted
+                                                                                Product
+                                                                            </td>
+                                                                        </Fragment>
+                                                                    )}
                                                                 </Fragment>
                                                             )
                                                         }
@@ -203,24 +229,27 @@ const AdminPanel = () => {
                                                     <a href="/addoredit">
                                                         <button>Add</button>
                                                     </a>
-                                                    <button
-                                                        onClick={() => {
-                                                            if (
-                                                                window.confirm(
-                                                                    'Are you sure to delete ' +
-                                                                        product.name +
-                                                                        '?',
-                                                                ) &&
-                                                                window.alert(
-                                                                    product.name +
-                                                                        ' has been deleted successfully',
-                                                                )
-                                                                //product delete logic
-                                                            );
-                                                        }}
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                    <ApolloConsumer>
+                                                        {(client) => (
+                                                            <button
+                                                                onClick={async () => {
+                                                                    const {
+                                                                        data,
+                                                                    } = await client.query(
+                                                                        {
+                                                                            query: DELETE_PRODUCT,
+                                                                            variables: {
+                                                                                id:
+                                                                                    product.id,
+                                                                            },
+                                                                        },
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        )}
+                                                    </ApolloConsumer>
                                                 </td>
                                             </tr>
                                         ))}
