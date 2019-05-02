@@ -73,6 +73,14 @@ const Login = () => {
                             onCompleted={(data) => {
                                 if (data.login.userName === 'Success:true') {
                                     console.log('Login:', 'Successful');
+                                    localStorage.setItem(
+                                        'AUTH_TOKEN',
+                                        data.login.password,
+                                    );
+                                    // console.log(
+                                    //     'retrievedtoken:',
+                                    //     localStorage.getItem('AUTH_TOKEN'),
+                                    // );
                                     window.location = '/admin';
                                 } else {
                                     window.alert(

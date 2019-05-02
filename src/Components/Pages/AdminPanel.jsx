@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Link } from 'react';
 import './AdminPanel.scss';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -59,209 +59,260 @@ const DELETE_PRODUCT = gql`
 `;
 
 const AdminPanel = () => {
+    const authToken = localStorage.getItem('AUTH_TOKEN');
+
     return (
         <Fragment>
-            <Query query={GET_TRANSACTIONS}>
-                {({ data: dat }) =>
-                    console.log(dat) || (
-                        <Fragment>
-                            <h1>Transactions</h1>
-                            <table className="admintable">
-                                <tbody>
-                                    <tr>
-                                        <th>Transaction ID</th>
-                                        <th>User ID</th>
-                                        <th>User Name</th>
-                                        <th>Address</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        {/* <th>Product ID</th> */}
-                                        <th>Quantity</th>
-                                        <th>Date</th>
-                                        <th>currency</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    {dat &&
-                                        dat.transactions &&
-                                        dat.transactions.map((transaction) => (
-                                            <tr>
-                                                <td>{transaction.id}</td>
-                                                <td>{transaction.user_id}</td>
+            {authToken ? (
+                <Fragment>
+                    <Query query={GET_TRANSACTIONS}>
+                        {({ data: dat }) => (
+                            <Fragment>
+                                <h1>Transactions</h1>
+                                <table className="admintable">
+                                    <tbody>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>User ID</th>
+                                            <th>User Name</th>
+                                            <th>Address</th>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            {/* <th>Product ID</th> */}
+                                            <th>Quantity</th>
+                                            <th>Date</th>
+                                            <th>currency</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        {dat &&
+                                            dat.transactions &&
+                                            dat.transactions.map(
+                                                (transaction) => (
+                                                    <tr>
+                                                        <td>
+                                                            {transaction.id}
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                transaction.user_id
+                                                            }
+                                                        </td>
 
-                                                <Fragment>
-                                                    <Query
-                                                        query={GET_USER_NAME}
-                                                        variables={{
-                                                            id:
-                                                                transaction.user_id,
-                                                        }}
-                                                    >
-                                                        {({ data: userdata }) =>
-                                                            console.log(
-                                                                'userd::',
-                                                                userdata,
-                                                            ) || (
-                                                                <Fragment>
-                                                                    {userdata &&
-                                                                        userdata.user && (
+                                                        <Fragment>
+                                                            <Query
+                                                                query={
+                                                                    GET_USER_NAME
+                                                                }
+                                                                variables={{
+                                                                    id:
+                                                                        transaction.user_id,
+                                                                }}
+                                                            >
+                                                                {({
+                                                                    data: userdata,
+                                                                }) => (
+                                                                    <Fragment>
+                                                                        {userdata &&
+                                                                            userdata.user && (
+                                                                                <Fragment>
+                                                                                    <td>
+                                                                                        {
+                                                                                            userdata
+                                                                                                .user
+                                                                                                .userName
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {
+                                                                                            userdata
+                                                                                                .user
+                                                                                                .address
+                                                                                        }
+                                                                                    </td>
+                                                                                </Fragment>
+                                                                            )}
+                                                                    </Fragment>
+                                                                )}
+                                                            </Query>
+                                                        </Fragment>
+
+                                                        <Fragment>
+                                                            <Query
+                                                                query={
+                                                                    GET_PRODUCT_NAME
+                                                                }
+                                                                variables={{
+                                                                    id:
+                                                                        transaction.product_id,
+                                                                }}
+                                                            >
+                                                                {({
+                                                                    data: productdata,
+                                                                }) => (
+                                                                    <Fragment>
+                                                                        {productdata &&
+                                                                        productdata.product &&
+                                                                        productdata
+                                                                            .product
+                                                                            .name ? (
                                                                             <Fragment>
                                                                                 <td>
                                                                                     {
-                                                                                        userdata
-                                                                                            .user
-                                                                                            .userName
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .name
                                                                                     }
                                                                                 </td>
                                                                                 <td>
-                                                                                    {
-                                                                                        userdata
-                                                                                            .user
-                                                                                            .address
-                                                                                    }
+                                                                                    {productdata
+                                                                                        .product
+                                                                                        .price +
+                                                                                        ' * ' +
+                                                                                        transaction.quantity +
+                                                                                        ' = ' +
+                                                                                        productdata
+                                                                                            .product
+                                                                                            .price *
+                                                                                            transaction.quantity}
+                                                                                </td>
+                                                                            </Fragment>
+                                                                        ) : (
+                                                                            <Fragment>
+                                                                                <td>
+                                                                                    Deleted
+                                                                                    Product
+                                                                                </td>
+                                                                                <td>
+                                                                                    Deleted
+                                                                                    Product
                                                                                 </td>
                                                                             </Fragment>
                                                                         )}
-                                                                </Fragment>
-                                                            )
-                                                        }
-                                                    </Query>
-                                                </Fragment>
+                                                                    </Fragment>
+                                                                )}
+                                                            </Query>
+                                                        </Fragment>
 
-                                                <Fragment>
-                                                    <Query
-                                                        query={GET_PRODUCT_NAME}
-                                                        variables={{
-                                                            id:
-                                                                transaction.product_id,
-                                                        }}
-                                                    >
-                                                        {({
-                                                            data: productdata,
-                                                        }) =>
-                                                            console.log(
-                                                                'userd::',
-                                                                productdata,
-                                                            ) || (
-                                                                <Fragment>
-                                                                    {productdata &&
-                                                                    productdata.product &&
-                                                                    productdata
-                                                                        .product
-                                                                        .name ? (
-                                                                        <Fragment>
-                                                                            <td>
-                                                                                {
-                                                                                    productdata
-                                                                                        .product
-                                                                                        .name
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {productdata
-                                                                                    .product
-                                                                                    .price +
-                                                                                    ' * ' +
-                                                                                    transaction.quantity +
-                                                                                    ' = ' +
-                                                                                    productdata
-                                                                                        .product
-                                                                                        .price *
-                                                                                        transaction.quantity}
-                                                                            </td>
-                                                                        </Fragment>
-                                                                    ) : (
-                                                                        <Fragment>
-                                                                            <td>
-                                                                                Deleted
-                                                                                Product
-                                                                            </td>
-                                                                            <td>
-                                                                                Deleted
-                                                                                Product
-                                                                            </td>
-                                                                        </Fragment>
-                                                                    )}
-                                                                </Fragment>
-                                                            )
-                                                        }
-                                                    </Query>
-                                                </Fragment>
-
-                                                {/* <td>
+                                                        {/* <td>
                                                     {transaction.product_id}
                                                 </td> */}
-                                                <td>{transaction.quantity}</td>
-                                                <td>{transaction.date}</td>
-                                                <td>{transaction.currency}</td>
-                                                <td>{transaction.status}</td>
-                                            </tr>
-                                        ))}
-                                </tbody>
-                            </table>
-                        </Fragment>
-                    )
-                }
-            </Query>
+                                                        <td>
+                                                            {
+                                                                transaction.quantity
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {transaction.date}
+                                                        </td>
+                                                        <td>
+                                                            {
+                                                                transaction.currency
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            {transaction.status}
+                                                        </td>
+                                                    </tr>
+                                                ),
+                                            )}
+                                    </tbody>
+                                </table>
+                            </Fragment>
+                        )}
+                    </Query>
 
-            <Query query={GET_PRODUCTS}>
-                {({ data, refetch }) =>
-                    console.log(data) || (
-                        <Fragment>
-                            <h1>Products</h1>
-                            <table className="admintable">
-                                <tbody>
-                                    <tr>
-                                        <th>Product ID</th>
-                                        <th>Product Name</th>
-                                        <th>Price</th>
-                                        <th>Stock</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    {data &&
-                                        data.products &&
-                                        data.products.map((product) => (
+                    <Query query={GET_PRODUCTS}>
+                        {({ data, refetch }) =>
+                            console.log(data) || (
+                                <Fragment>
+                                    <h1>Products</h1>
+                                    <table className="admintable">
+                                        <tbody>
                                             <tr>
-                                                <td>{product.id}</td>
-                                                <td>{product.name}</td>
-                                                <td>{product.price}</td>
-                                                <td>{product.stock}</td>
-                                                <td>
-                                                    <a href="/addoredit">
-                                                        <button>Add</button>
-                                                    </a>
-                                                    <ApolloConsumer>
-                                                        {(client) => (
-                                                            <button
-                                                                onClick={async () => {
-                                                                    const {
-                                                                        data,
-                                                                    } = await client.query(
-                                                                        {
-                                                                            query: DELETE_PRODUCT,
-                                                                            variables: {
-                                                                                id:
-                                                                                    product.id,
-                                                                            },
-                                                                        },
-                                                                    );
-                                                                    // to refresh the product table after the deletion.
-                                                                    refetch();
-                                                                }}
-                                                            >
-                                                                Delete
-                                                            </button>
-                                                        )}
-                                                    </ApolloConsumer>
-                                                </td>
+                                                <th>Product ID</th>
+                                                <th>Product Name</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                                <th>Actions</th>
                                             </tr>
-                                        ))}
-                                </tbody>
-                            </table>
-                        </Fragment>
-                    )
-                }
-            </Query>
+                                            {data &&
+                                                data.products &&
+                                                data.products.map((product) => (
+                                                    <tr>
+                                                        <td>{product.id}</td>
+                                                        <td>{product.name}</td>
+                                                        <td>{product.price}</td>
+                                                        <td>{product.stock}</td>
+                                                        <td>
+                                                            <a href="/addoredit">
+                                                                <button>
+                                                                    Add
+                                                                </button>
+                                                            </a>
+                                                            <ApolloConsumer>
+                                                                {(client) => (
+                                                                    <button
+                                                                        onClick={async () => {
+                                                                            const {
+                                                                                data,
+                                                                            } = await client.query(
+                                                                                {
+                                                                                    query: DELETE_PRODUCT,
+                                                                                    variables: {
+                                                                                        id:
+                                                                                            product.id,
+                                                                                    },
+                                                                                },
+                                                                            );
+                                                                            // to refresh the product table after the deletion.
+                                                                            refetch();
+                                                                        }}
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                )}
+                                                            </ApolloConsumer>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+
+                                    <button
+                                        onClick={() => {
+                                            localStorage.removeItem(
+                                                'AUTH_TOKEN',
+                                            );
+                                            window.location = '/login';
+                                        }}
+                                    >
+                                        logout
+                                    </button>
+                                </Fragment>
+                            )
+                        }
+                    </Query>
+                </Fragment>
+            ) : (
+                <Fragment>
+                    <h1>You need to login first!!!</h1>
+                </Fragment>
+            )}
         </Fragment>
+        // <div>
+        //     {authToken ? (
+        //         <button
+        //             onClick={() => {
+        //                 localStorage.removeItem('AUTH_TOKEN');
+        //                 window.location = '/';
+        //             }}
+        //         >
+        //             logout
+        //         </button>
+        //     ) : (
+        //         <Link to="/login">login</Link>
+        //     )}
+        // </div>
     );
 };
 
