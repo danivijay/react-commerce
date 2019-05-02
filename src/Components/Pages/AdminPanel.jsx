@@ -204,7 +204,7 @@ const AdminPanel = () => {
             </Query>
 
             <Query query={GET_PRODUCTS}>
-                {({ data }) =>
+                {({ data, refetch }) =>
                     console.log(data) || (
                         <Fragment>
                             <h1>Products</h1>
@@ -244,6 +244,8 @@ const AdminPanel = () => {
                                                                             },
                                                                         },
                                                                     );
+                                                                    // to refresh the product table after the deletion.
+                                                                    refetch();
                                                                 }}
                                                             >
                                                                 Delete
