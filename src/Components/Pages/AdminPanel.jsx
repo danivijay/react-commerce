@@ -148,48 +148,50 @@ const AdminPanel = () => {
                                                             >
                                                                 {({
                                                                     data: productdata,
-                                                                }) => (
-                                                                    <Fragment>
-                                                                        {productdata &&
-                                                                        productdata.product &&
-                                                                        productdata
-                                                                            .product
-                                                                            .name ? (
-                                                                            <Fragment>
-                                                                                <td>
-                                                                                    {
-                                                                                        productdata
+                                                                }) =>
+                                                                    console.log(
+                                                                        'userd::',
+                                                                        productdata,
+                                                                    ) || (
+                                                                        <Fragment>
+                                                                            {productdata &&
+                                                                            productdata.product ? (
+                                                                                <Fragment>
+                                                                                    <td>
+                                                                                        {
+                                                                                            productdata
+                                                                                                .product
+                                                                                                .name
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {productdata
                                                                                             .product
-                                                                                            .name
-                                                                                    }
-                                                                                </td>
-                                                                                <td>
-                                                                                    {productdata
-                                                                                        .product
-                                                                                        .price +
-                                                                                        ' * ' +
-                                                                                        transaction.quantity +
-                                                                                        ' = ' +
-                                                                                        productdata
-                                                                                            .product
-                                                                                            .price *
-                                                                                            transaction.quantity}
-                                                                                </td>
-                                                                            </Fragment>
-                                                                        ) : (
-                                                                            <Fragment>
-                                                                                <td>
-                                                                                    Deleted
-                                                                                    Product
-                                                                                </td>
-                                                                                <td>
-                                                                                    Deleted
-                                                                                    Product
-                                                                                </td>
-                                                                            </Fragment>
-                                                                        )}
-                                                                    </Fragment>
-                                                                )}
+                                                                                            .price +
+                                                                                            ' * ' +
+                                                                                            transaction.quantity +
+                                                                                            ' = ' +
+                                                                                            productdata
+                                                                                                .product
+                                                                                                .price *
+                                                                                                transaction.quantity}
+                                                                                    </td>
+                                                                                </Fragment>
+                                                                            ) : (
+                                                                                <Fragment>
+                                                                                    <td>
+                                                                                        Deleted
+                                                                                        Product
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        Deleted
+                                                                                        Product
+                                                                                    </td>
+                                                                                </Fragment>
+                                                                            )}
+                                                                        </Fragment>
+                                                                    )
+                                                                }
                                                             </Query>
                                                         </Fragment>
 
