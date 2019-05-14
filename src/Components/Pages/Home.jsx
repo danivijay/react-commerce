@@ -20,6 +20,7 @@ const GET_PRODUCTS = gql`
 
 const Home = () => {
     return (
+        //if the token is expired then there won't be any data, so the expired token is removed and then the query is executing successfully
         <Query query={GET_PRODUCTS}>
             {({ data }) =>
                 console.log(data) || (
@@ -27,13 +28,13 @@ const Home = () => {
                         <Hero />
                         <Filterbar />
                         <div className="grid">
-                            {data &&
-                                data.products &&
-                                data.products.map((product) => (
-                                    <div class="grid__item grid__item--sm-span-4">
-                                        <Cards product={product} />
-                                    </div>
-                                ))}
+                            {data && data.products
+                                ? data.products.map((product) => (
+                                      <div class="grid__item grid__item--sm-span-4">
+                                          <Cards product={product} />
+                                      </div>
+                                  ))
+                                : localStorage.removeItem('AUTH_TOKEN')}
                         </div>
                     </div>
                 )
