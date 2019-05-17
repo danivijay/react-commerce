@@ -77,7 +77,7 @@ const Login = () => {
                             onCompleted={(data) => {
                                 console.log('Data==>', data);
                                 if (
-                                    data.login.userName !=
+                                    data.login.userName !==
                                     'Incorrect username or password'
                                 ) {
                                     console.log('Login:', 'Successful');

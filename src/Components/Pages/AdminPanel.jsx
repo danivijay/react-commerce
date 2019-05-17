@@ -131,11 +131,20 @@ const AdminPanel = () => {
                                                                                         }
                                                                                     </td>
                                                                                     <td>
-                                                                                        {JSON.stringify(
+                                                                                        {userdata
+                                                                                            .user
+                                                                                            .address[0]
+                                                                                            .streetAddress +
+                                                                                            ' ' +
                                                                                             userdata
                                                                                                 .user
-                                                                                                .address,
-                                                                                        )}
+                                                                                                .address[0]
+                                                                                                .state +
+                                                                                            ' ' +
+                                                                                            userdata
+                                                                                                .user
+                                                                                                .address[0]
+                                                                                                .country}
                                                                                     </td>
                                                                                 </Fragment>
                                                                             )}
