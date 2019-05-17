@@ -28,6 +28,7 @@ const SIGNUP_MUTATION = gql`
     }
 `;
 
+var CUR_USER;
 const Login = () => {
     return (
         <div className="grid">
@@ -50,6 +51,9 @@ const Login = () => {
                     // }}
                     onSubmit={(values, { setSubmitting }) => {
                         console.log('submitted values::', values);
+                        CUR_USER = values.userName;
+
+                        localStorage.setItem('CUR_USER', CUR_USER);
                         // setTimeout(() => {
                         //     alert(JSON.stringify(values, null, 2));
                         //     setSubmitting(false);
@@ -71,16 +75,27 @@ const Login = () => {
                             variables={{ userName, password }}
                             // onCompleted={(data) => this._confirm(data)}
                             onCompleted={(data) => {
-                                if (data.login.userName === 'Success:true') {
+                                console.log('Data==>', data);
+                                if (
+                                    data.login.userName !=
+                                    'Incorrect username or password'
+                                ) {
                                     console.log('Login:', 'Successful');
+
                                     localStorage.setItem(
                                         'AUTH_TOKEN',
                                         data.login.password,
                                     );
-                                    // console.log(
-                                    //     'retrievedtoken:',
-                                    //     localStorage.getItem('AUTH_TOKEN'),
-                                    // );
+
+                                    localStorage.setItem(
+                                        'CUR_USER',
+                                        data.login.userName,
+                                    );
+
+                                    console.log(
+                                        'retrievedtoken:',
+                                        localStorage.getItem('AUTH_TOKEN'),
+                                    );
                                     window.location = '/admin';
                                 } else {
                                     window.alert(

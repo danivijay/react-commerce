@@ -33,7 +33,15 @@ const GET_USER_NAME = gql`
     query user($id: String!) {
         user(id: $id) {
             userName
-            address
+            address {
+                country
+                fullName
+                mobileNo
+                pinCode
+                streetAddress
+                state
+                default
+            }
         }
     }
 `;
@@ -123,11 +131,11 @@ const AdminPanel = () => {
                                                                                         }
                                                                                     </td>
                                                                                     <td>
-                                                                                        {
+                                                                                        {JSON.stringify(
                                                                                             userdata
                                                                                                 .user
-                                                                                                .address
-                                                                                        }
+                                                                                                .address,
+                                                                                        )}
                                                                                     </td>
                                                                                 </Fragment>
                                                                             )}
