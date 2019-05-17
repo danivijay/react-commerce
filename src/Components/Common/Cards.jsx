@@ -40,6 +40,8 @@ var curDateString = `${curDate.getMonth() +
 console.log('CurDate::', curDateString);
 
 const Cards = ({ product }) => {
+    const authToken = localStorage.getItem('AUTH_TOKEN');
+
     const [quantity, setQuantity] = useState(1);
 
     const handleQuantityIncrement = () => {
@@ -101,23 +103,32 @@ const Cards = ({ product }) => {
                                     return (
                                         <button
                                             onClick={() => {
-                                                Createtransaction({
-                                                    variables: {
-                                                        quantity: quantity,
-                                                        user_id: userid,
-                                                        date: curDateString,
-                                                        product_id: product.id,
-                                                        currency: 'INR',
-                                                        status: 'inCart',
-                                                    },
-                                                }).then((res) => {
-                                                    if (
-                                                        window.alert(
-                                                            product.name +
-                                                                ' has successfully added to the cart',
-                                                        )
-                                                    );
-                                                });
+                                                {
+                                                    authToken
+                                                        ? Createtransaction({
+                                                              variables: {
+                                                                  quantity: quantity,
+                                                                  user_id: userid,
+                                                                  date: curDateString,
+                                                                  product_id:
+                                                                      product.id,
+                                                                  currency:
+                                                                      'INR',
+                                                                  status:
+                                                                      'inCart',
+                                                              },
+                                                          }).then((res) => {
+                                                              if (
+                                                                  window.alert(
+                                                                      product.name +
+                                                                          ' has successfully added to the cart',
+                                                                  )
+                                                              );
+                                                          })
+                                                        : window.alert(
+                                                              'You need to login first',
+                                                          );
+                                                }
                                             }}
                                             class="btn btn--pad-20 btn--uppercase btn--secondary btn--right-float"
                                         >
