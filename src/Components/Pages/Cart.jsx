@@ -24,6 +24,28 @@ const GET_PRODUCT_NAME = gql`
     }
 `;
 
+const CHECKOUT_PRODUCTS = gql`
+    mutation Checkout_transaction(
+        $user_id: String!
+        $cur_status: String!
+        $new_status: String!
+    ) {
+        checkout_transaction(
+            user_id: $user_id
+            cur_status: $cur_status
+            new_status: $new_status
+        ) {
+            id
+            quantity
+            user_id
+            product_id
+            date
+            currency
+            status
+        }
+    }
+`;
+
 const uid = localStorage.getItem('CUR_USER');
 console.log('uid==>', uid);
 const Cart = () => {
@@ -45,7 +67,32 @@ const Cart = () => {
                     fontsize="15px"
                 />
 
-                <button class="btn1">Checkout</button>
+                <Mutation mutation={CHECKOUT_PRODUCTS}>
+                    {(checkout_transaction, { data, loading, error }) => {
+                        return (
+                            <button
+                                class="btn1"
+                                onClick={() => {
+                                    checkout_transaction({
+                                        variables: {
+                                            user_id: uid,
+                                            cur_status: 'inCart',
+                                            new_status: 'Shipped',
+                                        },
+                                    }).then((res) => {
+                                        if (
+                                            window.alert(
+                                                ' All proucts has successfully purchased',
+                                            )
+                                        );
+                                    });
+                                }}
+                            >
+                                Checkout
+                            </button>
+                        );
+                    }}
+                </Mutation>
             </div>
             <div class="grid__item grid__item--sm-span-6">
                 <article class="card">

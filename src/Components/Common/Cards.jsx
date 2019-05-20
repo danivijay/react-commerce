@@ -94,15 +94,6 @@ const Cards = ({ product }) => {
                                     Createtransaction,
                                     { data, loading, error },
                                 ) => {
-                                    // <button
-                                    // onClick={() => {
-                                    //     if (
-                                    //         window.alert(
-                                    //             'Product Successfully Added to the cart',
-                                    //         )
-                                    //     );
-                                    // }}
-                                    // </button>;
                                     return (
                                         <button
                                             onClick={() => {
