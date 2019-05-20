@@ -4,8 +4,8 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const GET_INCART_ITEMS = gql`
-    query incarttransactions($userid: String!) {
-        incarttransactions(user_id: $userid) {
+    query incarttransactions($user_id: String!, $status: String!) {
+        incarttransactions(user_id: $user_id, status: $status) {
             id
             user_id
             status
@@ -24,7 +24,8 @@ const GET_PRODUCT_NAME = gql`
     }
 `;
 
-const uid = '5cb971e834a03d20b0d6ff20';
+const uid = localStorage.getItem('CUR_USER');
+console.log('uid==>', uid);
 const Cart = () => {
     return (
         <div class="grid">
@@ -53,7 +54,8 @@ const Cart = () => {
                             <Query
                                 query={GET_INCART_ITEMS}
                                 variables={{
-                                    userid: uid,
+                                    user_id: uid,
+                                    status: 'inCart',
                                 }}
                             >
                                 {({ data: data }) =>
