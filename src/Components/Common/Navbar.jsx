@@ -20,6 +20,11 @@ const Navbar = () => {
                         Cart
                     </a>
                 </li>
+                <li className="menu__list">
+                    <a href="/myproducts" className="menu__link">
+                        My Products
+                    </a>
+                </li>
             </ul>
         </div>
     );
