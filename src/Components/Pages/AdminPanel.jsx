@@ -33,7 +33,15 @@ const GET_USER_NAME = gql`
     query user($id: String!) {
         user(id: $id) {
             userName
-            address
+            address {
+                country
+                fullName
+                mobileNo
+                pinCode
+                streetAddress
+                state
+                default
+            }
         }
     }
 `;
@@ -123,11 +131,20 @@ const AdminPanel = () => {
                                                                                         }
                                                                                     </td>
                                                                                     <td>
-                                                                                        {
+                                                                                        {userdata
+                                                                                            .user
+                                                                                            .address[0]
+                                                                                            .streetAddress +
+                                                                                            ' ' +
                                                                                             userdata
                                                                                                 .user
-                                                                                                .address
-                                                                                        }
+                                                                                                .address[0]
+                                                                                                .state +
+                                                                                            ' ' +
+                                                                                            userdata
+                                                                                                .user
+                                                                                                .address[0]
+                                                                                                .country}
                                                                                     </td>
                                                                                 </Fragment>
                                                                             )}

@@ -32,7 +32,10 @@ const TRANSACTION_MUTATION = gql`
     }
 `;
 
-const userid = '5cb971e834a03d20b0d6ff20';
+const userid = localStorage.getItem('CUR_USER');
+
+console.log('CUR_USER::::', userid);
+
 const curDate = new Date();
 var curDateString = `${curDate.getMonth() +
     1}/${curDate.getDate()}/${curDate.getFullYear()}`;
@@ -91,15 +94,6 @@ const Cards = ({ product }) => {
                                     Createtransaction,
                                     { data, loading, error },
                                 ) => {
-                                    // <button
-                                    // onClick={() => {
-                                    //     if (
-                                    //         window.alert(
-                                    //             'Product Successfully Added to the cart',
-                                    //         )
-                                    //     );
-                                    // }}
-                                    // </button>;
                                     return (
                                         <button
                                             onClick={() => {
