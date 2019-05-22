@@ -66,12 +66,23 @@ const DELETE_PRODUCT = gql`
     }
 `;
 
+function parseJWT(token) {
+    if (!token) {
+        return;
+    }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
+
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
+    var tokendata = parseJWT(authToken);
+    console.log('usrType', tokendata.userType);
 
     return (
         <Fragment>
-            {authToken ? (
+            {tokendata.userType === 'admin' ? (
                 <Fragment>
                     <Query query={GET_TRANSACTIONS}>
                         {({ data: dat }) => (
@@ -314,7 +325,7 @@ const AdminPanel = () => {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <h1>You need to login first!!!</h1>
+                    <h1>You don't have the access</h1>
                 </Fragment>
             )}
         </Fragment>
