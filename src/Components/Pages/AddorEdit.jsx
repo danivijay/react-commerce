@@ -5,15 +5,28 @@ import gql from 'graphql-tag';
 import { Formik } from 'formik';
 
 const PRODUCT_MUTATION = gql`
-    mutation Createproduct($name: String!, $price: Int!, $stock: Int!) {
-        product(name: $name, price: $price, stock: $stock) {
+    mutation Createproduct(
+        $name: String!
+        $price: Int!
+        $stock: Int!
+        $owner_user_id: String!
+    ) {
+        product(
+            name: $name
+            price: $price
+            stock: $stock
+            owner_user_id: $owner_user_id
+        ) {
             id
             name
             price
             stock
+            owner_user_id
         }
     }
 `;
+
+const uid = localStorage.getItem('CUR_USER');
 
 const AddorEdit = () => {
     return (
@@ -37,7 +50,7 @@ const AddorEdit = () => {
                 }) => (
                     <Mutation
                         mutation={PRODUCT_MUTATION}
-                        variables={{ name, price, stock }}
+                        variables={{ name, price, stock, owner_user_id: uid }}
                         // onCompleted={(data) => this._confirm(data)}
                         // onCompleted={(data) => console.log('data::', data)}
                         onCompleted={(data) =>
