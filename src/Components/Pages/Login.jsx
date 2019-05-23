@@ -28,6 +28,15 @@ const SIGNUP_MUTATION = gql`
     }
 `;
 
+function parseJWT(token) {
+    if (!token) {
+        return;
+    }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
+
 var CUR_USER;
 const Login = () => {
     return (
@@ -82,9 +91,22 @@ const Login = () => {
                                 ) {
                                     console.log('Login:', 'Successful');
 
+                                    if (localStorage.getItem('AUTH_TOKEN'))
+                                        localStorage.removeItem('AUTH_TOKEN');
+
                                     localStorage.setItem(
                                         'AUTH_TOKEN',
                                         data.login.password,
+                                    );
+
+                                    var tokendata = parseJWT(
+                                        data.login.password,
+                                    );
+                                    console.log('JWT DATA ==== >>', tokendata);
+
+                                    console.log(
+                                        'JWT DATA.usertype ==== >>',
+                                        tokendata.userType,
                                     );
 
                                     localStorage.setItem(
@@ -96,7 +118,10 @@ const Login = () => {
                                         'retrievedtoken:',
                                         localStorage.getItem('AUTH_TOKEN'),
                                     );
-                                    window.location = '/admin';
+
+                                    if (tokendata.userType === 'admin')
+                                        window.location = '/admin';
+                                    else window.location = '/';
                                 } else {
                                     window.alert(
                                         'Incorrect username or password',

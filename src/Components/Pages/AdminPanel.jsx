@@ -25,6 +25,19 @@ const GET_PRODUCTS = gql`
             price
             stock
             name
+            owner_user_id
+        }
+    }
+`;
+
+const GET_PRODUCTS_OWNED_BY_ME = gql`
+    query products_owned_by_me($user_id: String!) {
+        products_owned_by_me(user_id: $user_id) {
+            id
+            name
+            price
+            stock
+            owner_user_id
         }
     }
 `;
@@ -66,12 +79,25 @@ const DELETE_PRODUCT = gql`
     }
 `;
 
+function parseJWT(token) {
+    if (!token) {
+        return;
+    }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
+
+const uid = localStorage.getItem('CUR_USER');
+
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
+    var tokendata = parseJWT(authToken);
+    console.log('usrType', tokendata.userType);
 
     return (
         <Fragment>
-            {authToken ? (
+            {tokendata.userType === 'admin' ? (
                 <Fragment>
                     <Query query={GET_TRANSACTIONS}>
                         {({ data: dat }) => (
@@ -240,7 +266,12 @@ const AdminPanel = () => {
                         )}
                     </Query>
 
-                    <Query query={GET_PRODUCTS}>
+                    <Query
+                        query={GET_PRODUCTS_OWNED_BY_ME}
+                        variables={{
+                            user_id: uid,
+                        }}
+                    >
                         {({ data, refetch }) =>
                             console.log(data) || (
                                 <Fragment>
@@ -249,53 +280,78 @@ const AdminPanel = () => {
                                         <tbody>
                                             <tr>
                                                 <th>Product ID</th>
+                                                <th>Product Owner</th>
                                                 <th>Product Name</th>
                                                 <th>Price</th>
                                                 <th>Stock</th>
                                                 <th>Actions</th>
                                             </tr>
                                             {data &&
-                                                data.products &&
-                                                data.products.map((product) => (
-                                                    <tr>
-                                                        <td>{product.id}</td>
-                                                        <td>{product.name}</td>
-                                                        <td>{product.price}</td>
-                                                        <td>{product.stock}</td>
-                                                        <td>
-                                                            <a href="/addoredit">
-                                                                <button>
-                                                                    Add
-                                                                </button>
-                                                            </a>
-                                                            <ApolloConsumer>
-                                                                {(client) => (
-                                                                    <button
-                                                                        onClick={async () => {
-                                                                            const {
-                                                                                data,
-                                                                            } = await client.query(
-                                                                                {
-                                                                                    query: DELETE_PRODUCT,
-                                                                                    variables: {
-                                                                                        id:
-                                                                                            product.id,
-                                                                                    },
-                                                                                },
-                                                                            );
-                                                                            // to refresh the product table after the deletion.
-                                                                            refetch();
-                                                                        }}
-                                                                    >
-                                                                        Delete
+                                                data.products_owned_by_me &&
+                                                data.products_owned_by_me.map(
+                                                    (product) => (
+                                                        <tr>
+                                                            <td>
+                                                                {product.id}
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    product.owner_user_id
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {product.name}
+                                                            </td>
+                                                            <td>
+                                                                {product.price}
+                                                            </td>
+                                                            <td>
+                                                                {product.stock}
+                                                            </td>
+                                                            <td>
+                                                                <a href="/addoredit">
+                                                                    <button>
+                                                                        Add
                                                                     </button>
-                                                                )}
-                                                            </ApolloConsumer>
-                                                        </td>
-                                                    </tr>
-                                                ))}
+                                                                </a>
+                                                                <ApolloConsumer>
+                                                                    {(
+                                                                        client,
+                                                                    ) => (
+                                                                        <button
+                                                                            onClick={async () => {
+                                                                                const {
+                                                                                    data,
+                                                                                } = await client.query(
+                                                                                    {
+                                                                                        query: DELETE_PRODUCT,
+                                                                                        variables: {
+                                                                                            id:
+                                                                                                product.id,
+                                                                                        },
+                                                                                    },
+                                                                                );
+                                                                                // to refresh the product table after the deletion.
+                                                                                refetch();
+                                                                            }}
+                                                                        >
+                                                                            Delete
+                                                                        </button>
+                                                                    )}
+                                                                </ApolloConsumer>
+                                                            </td>
+                                                        </tr>
+                                                    ),
+                                                )}
                                         </tbody>
                                     </table>
+                                    <button
+                                        onClick={() => {
+                                            window.location = '/AddorEdit';
+                                        }}
+                                    >
+                                        Add Product
+                                    </button>
 
                                     <button
                                         onClick={() => {
@@ -314,7 +370,7 @@ const AdminPanel = () => {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <h1>You need to login first!!!</h1>
+                    <h1>You don't have the access</h1>
                 </Fragment>
             )}
         </Fragment>

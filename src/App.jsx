@@ -13,6 +13,7 @@ import Login from './Components/Pages/Login';
 import AdminPanel from './Components/Pages/AdminPanel';
 import AddorEdit from './Components/Pages/AddorEdit';
 import { setContext } from 'apollo-link-context';
+import MyProducts from './Components/Pages/MyProducts';
 
 const cache = new InMemoryCache();
 const token = localStorage.getItem('AUTH_TOKEN');
@@ -61,6 +62,11 @@ class App extends Component {
                                     path="/addoredit"
                                     exact
                                     component={AddorEdit}
+                                />
+                                <Route
+                                    path="/myproducts"
+                                    exact
+                                    component={MyProducts}
                                 />
                             </Switch>
                         </Router>
