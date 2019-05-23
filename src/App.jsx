@@ -52,7 +52,11 @@ class App extends Component {
                             <Switch>
                                 <Route path="/" exact component={Home} />
                                 <Route path="/cart" exact component={Cart} />
-                                <Route path="/login" exact component={Login} />
+                                <Route
+                                    path="/login-signup"
+                                    exact
+                                    component={Login}
+                                />
                                 <Route
                                     path="/admin"
                                     exact

@@ -107,11 +107,12 @@ const uid = localStorage.getItem('CUR_USER');
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
     var tokendata = parseJWT(authToken);
-    console.log('usrType', tokendata.userType);
+    if (tokendata && tokendata.userType)
+        console.log('usrType', tokendata.userType);
 
     return (
         <Fragment>
-            {tokendata.userType === 'admin' ? (
+            {tokendata && tokendata.userType === 'admin' ? (
                 <Fragment>
                     <Query query={GET_TRANSACTIONS}>
                         {({ data: dat }) => (
@@ -372,7 +373,7 @@ const AdminPanel = () => {
                                             localStorage.removeItem(
                                                 'AUTH_TOKEN',
                                             );
-                                            window.location = '/login';
+                                            window.location = '/login-signup';
                                         }}
                                     >
                                         logout
@@ -399,7 +400,7 @@ const AdminPanel = () => {
         //             logout
         //         </button>
         //     ) : (
-        //         <Link to="/login">login</Link>
+        //         <Link to="/login-signup">login</Link>
         //     )}
         // </div>
     );

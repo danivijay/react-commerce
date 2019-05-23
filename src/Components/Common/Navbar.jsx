@@ -24,7 +24,7 @@ const Navbar = () => {
 
             <ul className="menu__row">
                 <li className="menu__list">
-                    <a href="/login" className="menu__link">
+                    <a href="/login-signup" className="menu__link">
                         Login
                     </a>
                 </li>

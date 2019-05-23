@@ -28,13 +28,21 @@ const Home = () => {
                         <Hero />
                         <Filterbar />
                         <div className="grid">
-                            {data && data.products
-                                ? data.products.map((product) => (
-                                      <div class="grid__item grid__item--sm-span-4">
-                                          <Cards product={product} />
-                                      </div>
-                                  ))
-                                : localStorage.removeItem('AUTH_TOKEN')}
+                            {data &&
+                            data.products &&
+                            data.products.length === 0 ? (
+                                <div>
+                                    <h1>No Products have been added</h1>
+                                </div>
+                            ) : data && data.products ? (
+                                data.products.map((product) => (
+                                    <div class="grid__item grid__item--sm-span-4">
+                                        <Cards product={product} />
+                                    </div>
+                                ))
+                            ) : (
+                                localStorage.removeItem('AUTH_TOKEN')
+                            )}
                         </div>
                     </div>
                 )

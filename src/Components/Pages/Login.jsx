@@ -195,7 +195,7 @@ const Login = () => {
                                 console.log('Data:', data);
 
                                 window.alert('Sign up Successful');
-                                window.location = '/login';
+                                window.location = '/login-signup';
                             }}
                         >
                             {(mutation) => (
