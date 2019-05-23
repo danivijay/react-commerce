@@ -31,7 +31,7 @@ const Home = () => {
                             {data &&
                             data.products &&
                             data.products.length === 0 ? (
-                                <div>
+                                <div class="grid__item grid__item--sm-span-4">
                                     <h1>No Products have been added</h1>
                                 </div>
                             ) : data && data.products ? (
