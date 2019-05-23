@@ -18,6 +18,20 @@ const GET_TRANSACTIONS = gql`
     }
 `;
 
+const GET_TRANSACTIONS_OF_MY_PRODUCTS = gql`
+    query transactions_of_myproducts($product_id: String!) {
+        transactions_of_myproducts(product_id: $product_id) {
+            id
+            quantity
+            user_id
+            product_id
+            date
+            currency
+            status
+        }
+    }
+`;
+
 const GET_PRODUCTS = gql`
     {
         products {
@@ -273,7 +287,7 @@ const AdminPanel = () => {
                         }}
                     >
                         {({ data, refetch }) =>
-                            console.log(data) || (
+                            console.log('product_data===>>', data) || (
                                 <Fragment>
                                     <h1>Products</h1>
                                     <table className="admintable">

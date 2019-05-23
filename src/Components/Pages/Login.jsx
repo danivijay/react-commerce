@@ -19,11 +19,18 @@ const SIGNUP_MUTATION = gql`
         $userName: String!
         $password: String!
         $email: String!
+        $userType: String!
     ) {
-        user(userName: $userName, password: $password, email: $email) {
+        user(
+            userName: $userName
+            password: $password
+            email: $email
+            userType: $userType
+        ) {
             userName
             email
             password
+            userType
         }
     }
 `;
@@ -37,7 +44,6 @@ function parseJWT(token) {
     return JSON.parse(window.atob(base64));
 }
 
-var CUR_USER;
 const Login = () => {
     return (
         <div className="grid">
@@ -60,9 +66,9 @@ const Login = () => {
                     // }}
                     onSubmit={(values, { setSubmitting }) => {
                         console.log('submitted values::', values);
-                        CUR_USER = values.userName;
+                        // CUR_USER = values.userName;
 
-                        localStorage.setItem('CUR_USER', CUR_USER);
+                        // localStorage.setItem('CUR_USER', CUR_USER);
                         // setTimeout(() => {
                         //     alert(JSON.stringify(values, null, 2));
                         //     setSubmitting(false);
@@ -81,14 +87,14 @@ const Login = () => {
                     }) => (
                         <Mutation
                             mutation={LOGIN_MUTATION}
-                            variables={{ userName, password }}
+                            variables={{
+                                userName,
+                                password,
+                            }}
                             // onCompleted={(data) => this._confirm(data)}
                             onCompleted={(data) => {
                                 console.log('Data==>', data);
-                                if (
-                                    data.login.userName !==
-                                    'Incorrect username or password'
-                                ) {
+                                if (data.login.userName === 'success::true') {
                                     console.log('Login:', 'Successful');
 
                                     if (localStorage.getItem('AUTH_TOKEN'))
@@ -104,14 +110,19 @@ const Login = () => {
                                     );
                                     console.log('JWT DATA ==== >>', tokendata);
 
-                                    console.log(
-                                        'JWT DATA.usertype ==== >>',
-                                        tokendata.userType,
-                                    );
+                                    if (localStorage.getItem('CUR_USERNAME'))
+                                        localStorage.removeItem('CUR_USERNAME');
+
+                                    if (localStorage.getItem('CUR_USER'))
+                                        localStorage.removeItem('CUR_USER');
 
                                     localStorage.setItem(
+                                        'CUR_USERNAME',
+                                        tokendata.userName,
+                                    );
+                                    localStorage.setItem(
                                         'CUR_USER',
-                                        data.login.userName,
+                                        tokendata.user_id,
                                     );
 
                                     console.log(
@@ -174,8 +185,18 @@ const Login = () => {
                     }) => (
                         <Mutation
                             mutation={SIGNUP_MUTATION}
-                            variables={{ userName, password, email }}
-                            onCompleted={(data) => console.log('Data:', data)}
+                            variables={{
+                                userName,
+                                password,
+                                email,
+                                userType: 'buyer',
+                            }}
+                            onCompleted={(data) => {
+                                console.log('Data:', data);
+
+                                window.alert('Sign up Successful');
+                                window.location = '/login';
+                            }}
                         >
                             {(mutation) => (
                                 <Fragment>
