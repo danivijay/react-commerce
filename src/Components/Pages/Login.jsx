@@ -124,7 +124,7 @@ const Login = () => {
                                     );
                                     localStorage.setItem(
                                         'CUR_USER',
-                                        tokendata.user_id,
+                                        data.login.userName,
                                     );
 
                                     console.log(
