@@ -18,6 +18,20 @@ const GET_TRANSACTIONS = gql`
     }
 `;
 
+const GET_TRANSACTIONS_OF_MY_PRODUCTS = gql`
+    query transactions_of_myproducts($product_id: String!) {
+        transactions_of_myproducts(product_id: $product_id) {
+            id
+            quantity
+            user_id
+            product_id
+            date
+            currency
+            status
+        }
+    }
+`;
+
 const GET_PRODUCTS = gql`
     {
         products {
@@ -93,11 +107,12 @@ const uid = localStorage.getItem('CUR_USER');
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
     var tokendata = parseJWT(authToken);
-    console.log('usrType', tokendata.userType);
+    if (tokendata && tokendata.userType)
+        console.log('usrType', tokendata.userType);
 
     return (
         <Fragment>
-            {tokendata.userType === 'admin' ? (
+            {tokendata && tokendata.userType === 'admin' ? (
                 <Fragment>
                     <Query query={GET_TRANSACTIONS}>
                         {({ data: dat }) => (
@@ -273,7 +288,7 @@ const AdminPanel = () => {
                         }}
                     >
                         {({ data, refetch }) =>
-                            console.log(data) || (
+                            console.log('product_data===>>', data) || (
                                 <Fragment>
                                     <h1>Products</h1>
                                     <table className="admintable">
@@ -358,7 +373,7 @@ const AdminPanel = () => {
                                             localStorage.removeItem(
                                                 'AUTH_TOKEN',
                                             );
-                                            window.location = '/login';
+                                            window.location = '/login-signup';
                                         }}
                                     >
                                         logout
@@ -385,7 +400,7 @@ const AdminPanel = () => {
         //             logout
         //         </button>
         //     ) : (
-        //         <Link to="/login">login</Link>
+        //         <Link to="/login-signup">login</Link>
         //     )}
         // </div>
     );
