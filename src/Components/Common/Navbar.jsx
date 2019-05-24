@@ -40,11 +40,15 @@ const Navbar = () => {
                             Dashboard
                         </a>
                     </li>
-                ) : (
+                ) : tokendata && tokendata.userType === 'buyer' ? (
                     <li className="menu__list">
                         <a href="/myproducts" className="menu__link">
                             My Products
                         </a>
+                    </li>
+                ) : (
+                    <li className="menu__list">
+                        <a className="menu__link" />
                     </li>
                 )}
             </ul>

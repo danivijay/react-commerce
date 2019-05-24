@@ -94,7 +94,10 @@ const Login = () => {
                             // onCompleted={(data) => this._confirm(data)}
                             onCompleted={(data) => {
                                 console.log('Data==>', data);
-                                if (data.login.userName === 'success::true') {
+                                if (
+                                    data.login.userName !==
+                                    'incorrect username or password'
+                                ) {
                                     console.log('Login:', 'Successful');
 
                                     if (localStorage.getItem('AUTH_TOKEN'))
