@@ -13,7 +13,6 @@ const LOGIN_MUTATION = gql`
         }
     }
 `;
-
 const SIGNUP_MUTATION = gql`
     mutation Createuser(
         $userName: String!

@@ -41,9 +41,7 @@ const Navbar = () => {
                         </a>
                     </li>
                 ) : (
-                    <li className="menu__list">
-                        <a className="menu__link" />
-                    </li>
+                    <li className="menu__list" />
                 )}
 
                 {tokendata && tokendata.userType === 'buyer' ? (
@@ -53,9 +51,7 @@ const Navbar = () => {
                         </a>
                     </li>
                 ) : (
-                    <li className="menu__list">
-                        <a className="menu__link" />
-                    </li>
+                    <li className="menu__list" />
                 )}
             </ul>
         </div>
