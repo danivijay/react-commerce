@@ -28,12 +28,6 @@ const Navbar = () => {
                         Login
                     </a>
                 </li>
-                <li className="menu__list">
-                    <a href="/cart" className="menu__link">
-                        Cart
-                    </a>
-                </li>
-
                 {tokendata && tokendata.userType === 'admin' ? (
                     <li className="menu__list">
                         <a href="/admin" className="menu__link">
@@ -44,6 +38,18 @@ const Navbar = () => {
                     <li className="menu__list">
                         <a href="/myproducts" className="menu__link">
                             My Products
+                        </a>
+                    </li>
+                ) : (
+                    <li className="menu__list">
+                        <a className="menu__link" />
+                    </li>
+                )}
+
+                {tokendata && tokendata.userType === 'buyer' ? (
+                    <li className="menu__list">
+                        <a href="/cart" className="menu__link">
+                            Cart
                         </a>
                     </li>
                 ) : (
