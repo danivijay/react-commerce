@@ -196,8 +196,17 @@ const Login = () => {
                             onCompleted={(data) => {
                                 console.log('Data:', data);
 
-                                window.alert('Sign up Successful');
-                                window.location = '/login-signup';
+                                if (
+                                    data.user.userName === '' ||
+                                    data.user.userType === '' ||
+                                    data.user.email === '' ||
+                                    data.user.password === ''
+                                )
+                                    window.alert('All fields are mandatory');
+                                else {
+                                    window.alert('Sign up Successful');
+                                    window.location = '/login-signup';
+                                }
                             }}
                         >
                             {(mutation) => (
