@@ -13,7 +13,6 @@ const LOGIN_MUTATION = gql`
         }
     }
 `;
-
 const SIGNUP_MUTATION = gql`
     mutation Createuser(
         $userName: String!
@@ -125,7 +124,7 @@ const Login = () => {
                                     );
                                     localStorage.setItem(
                                         'CUR_USER',
-                                        tokendata.user_id,
+                                        data.login.userName,
                                     );
 
                                     console.log(
