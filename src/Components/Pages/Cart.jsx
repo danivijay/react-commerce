@@ -77,7 +77,7 @@ const Cart = () => {
                                         variables: {
                                             user_id: uid,
                                             cur_status: 'inCart',
-                                            new_status: 'Shipped',
+                                            new_status: 'placed order',
                                         },
                                     }).then((res) => {
                                         if (

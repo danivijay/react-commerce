@@ -1,6 +1,6 @@
 import React, { Fragment, Link } from 'react';
 import './AdminPanel.scss';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { ApolloConsumer } from 'react-apollo';
 
@@ -12,6 +12,27 @@ const GET_TRANSACTIONS = gql`
             user_id
             date
             product_id
+            currency
+            status
+        }
+    }
+`;
+
+const SHIP_DELIVERY_TRANSACTIONS = gql`
+    mutation ship_delivery_transaction(
+        $transaction_id: String!
+        $new_status: String!
+    ) {
+        ship_delivery_transaction(
+            transaction_id: $transaction_id
+
+            new_status: $new_status
+        ) {
+            id
+            quantity
+            user_id
+            product_id
+            date
             currency
             status
         }
@@ -132,6 +153,7 @@ const AdminPanel = () => {
                                             <th>Date</th>
                                             <th>currency</th>
                                             <th>Status</th>
+                                            <th>Actions</th>
                                         </tr>
                                         {dat &&
                                             dat.transactions &&
@@ -272,6 +294,80 @@ const AdminPanel = () => {
                                                         <td>
                                                             {transaction.status}
                                                         </td>
+
+                                                        <Mutation
+                                                            mutation={
+                                                                SHIP_DELIVERY_TRANSACTIONS
+                                                            }
+                                                        >
+                                                            {(
+                                                                ship_delivery_transaction,
+                                                                {
+                                                                    data,
+                                                                    loading,
+                                                                    error,
+                                                                },
+                                                            ) => {
+                                                                return (
+                                                                    <td>
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                ship_delivery_transaction(
+                                                                                    {
+                                                                                        variables: {
+                                                                                            transaction_id:
+                                                                                                transaction.id,
+                                                                                            new_status:
+                                                                                                'Shipped',
+                                                                                        },
+                                                                                    },
+                                                                                ).then(
+                                                                                    (
+                                                                                        res,
+                                                                                    ) => {
+                                                                                        window.alert(
+                                                                                            transaction.id +
+                                                                                                ' is Shipped',
+                                                                                        );
+
+                                                                                        window.location.reload();
+                                                                                    },
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            Shipped
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                ship_delivery_transaction(
+                                                                                    {
+                                                                                        variables: {
+                                                                                            transaction_id:
+                                                                                                transaction.id,
+                                                                                            new_status:
+                                                                                                'Delivered',
+                                                                                        },
+                                                                                    },
+                                                                                ).then(
+                                                                                    (
+                                                                                        res,
+                                                                                    ) => {
+                                                                                        window.alert(
+                                                                                            transaction.id +
+                                                                                                ' is Delivered',
+                                                                                        );
+
+                                                                                        window.location.reload();
+                                                                                    },
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            Delivered
+                                                                        </button>
+                                                                    </td>
+                                                                );
+                                                            }}
+                                                        </Mutation>
                                                     </tr>
                                                 ),
                                             )}

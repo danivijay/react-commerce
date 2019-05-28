@@ -41,7 +41,8 @@ const Home = () => {
                                     </div>
                                 ))
                             ) : (
-                                localStorage.removeItem('AUTH_TOKEN')
+                                //localStorage.removeItem('AUTH_TOKEN')
+                                console.log('removing token')
                             )}
                         </div>
                     </div>
