@@ -49,6 +49,8 @@ const GET_TRANSACTIONS_OF_MY_PRODUCTS = gql`
             quantity
             product_id
             owner_user_id
+            date
+            currency
         }
     }
 `;
