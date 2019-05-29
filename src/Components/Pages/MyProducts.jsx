@@ -3,9 +3,9 @@ import './AdminPanel.scss';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const GET_SHIPPED_TRANSACTIONS = gql`
-    query incarttransactions($user_id: String!, $status: String!) {
-        incarttransactions(user_id: $user_id, status: $status) {
+const GET_MY_PRODUCTS_TRANSACTIONS = gql`
+    query user_my_products_transactions($user_id: String!, $status: String!) {
+        user_my_products_transactions(user_id: $user_id, status: $status) {
             id
             user_id
             status
@@ -57,7 +57,7 @@ const GET_PRODUCT_NAME = gql`
     }
 `;
 const uid = localStorage.getItem('CUR_USER');
-const status = 'Shipped';
+const status = 'inCart';
 const MyProducts = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
 
@@ -66,14 +66,17 @@ const MyProducts = () => {
             {authToken ? (
                 <Fragment>
                     <Query
-                        query={GET_SHIPPED_TRANSACTIONS}
+                        query={GET_MY_PRODUCTS_TRANSACTIONS}
                         variables={{
                             user_id: uid,
                             status: status,
                         }}
                     >
                         {({ data: dat }) =>
-                            console.log('data===>', dat.incarttransactions) || (
+                            console.log(
+                                'data===>',
+                                dat.user_my_products_transactions,
+                            ) || (
                                 <Fragment>
                                     <h1>My Products</h1>
                                     <table className="admintable">
@@ -93,8 +96,8 @@ const MyProducts = () => {
                                             </tr>
 
                                             {dat &&
-                                                dat.incarttransactions &&
-                                                dat.incarttransactions.map(
+                                                dat.user_my_products_transactions &&
+                                                dat.user_my_products_transactions.map(
                                                     (transaction) => (
                                                         <tr>
                                                             <td>
