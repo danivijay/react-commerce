@@ -14,6 +14,7 @@ const GET_PRODUCTS = gql`
             name
             price
             stock
+            owner_user_id
         }
     }
 `;
@@ -42,7 +43,10 @@ const Home = () => {
                                 ))
                             ) : (
                                 //localStorage.removeItem('AUTH_TOKEN')
-                                console.log('removing token')
+                                //console.log('removing token')
+
+                                (window.location = '/login-signup') &&
+                                window.alert('Session expired login again')
                             )}
                         </div>
                     </div>

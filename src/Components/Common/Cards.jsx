@@ -13,6 +13,7 @@ const TRANSACTION_MUTATION = gql`
         $date: String!
         $currency: String!
         $status: String!
+        $owner_user_id: String!
     ) {
         transaction(
             quantity: $quantity
@@ -21,6 +22,7 @@ const TRANSACTION_MUTATION = gql`
             product_id: $product_id
             currency: $currency
             status: $status
+            owner_user_id: $owner_user_id
         ) {
             user_id
             quantity
@@ -28,6 +30,7 @@ const TRANSACTION_MUTATION = gql`
             product_id
             currency
             status
+            owner_user_id
         }
     }
 `;
@@ -45,6 +48,7 @@ console.log('CurDate::', curDateString);
 const Cards = ({ product }) => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
     console.log('token===>', authToken);
+    console.log('product====>', product);
 
     const [quantity, setQuantity] = useState(1);
 
@@ -111,6 +115,8 @@ const Cards = ({ product }) => {
                                                                       'INR',
                                                                   status:
                                                                       'inCart',
+                                                                  owner_user_id:
+                                                                      product.owner_user_id,
                                                               },
                                                           }).then((res) => {
                                                               if (
