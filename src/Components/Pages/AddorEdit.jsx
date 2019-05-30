@@ -53,9 +53,10 @@ const AddorEdit = () => {
                         variables={{ name, price, stock, owner_user_id: uid }}
                         // onCompleted={(data) => this._confirm(data)}
                         // onCompleted={(data) => console.log('data::', data)}
-                        onCompleted={(data) =>
-                            window.alert('Product has been added successfully')
-                        }
+                        onCompleted={(data) => {
+                            window.alert('Product has been added successfully');
+                            window.location = '/admin';
+                        }}
                     >
                         {(mutation) => (
                             <Fragment>

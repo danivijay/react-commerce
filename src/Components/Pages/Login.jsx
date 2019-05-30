@@ -44,6 +44,10 @@ function parseJWT(token) {
 }
 
 const Login = () => {
+    if (localStorage.getItem('AUTH_TOKEN')) {
+        console.log('Removing expired token');
+        localStorage.removeItem('AUTH_TOKEN');
+    }
     return (
         <div className="grid">
             <div className="grid__item grid__item--sm-span-6">

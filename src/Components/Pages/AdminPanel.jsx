@@ -14,6 +14,7 @@ const GET_TRANSACTIONS = gql`
             product_id
             currency
             status
+            owner_user_id
         }
     }
 `;
@@ -40,15 +41,16 @@ const SHIP_DELIVERY_TRANSACTIONS = gql`
 `;
 
 const GET_TRANSACTIONS_OF_MY_PRODUCTS = gql`
-    query transactions_of_myproducts($product_id: String!) {
-        transactions_of_myproducts(product_id: $product_id) {
+    query user_my_products_transactions($owner_user_id: String!) {
+        user_my_products_transactions(user_id: $owner_user_id) {
             id
-            quantity
             user_id
+            status
+            quantity
             product_id
+            owner_user_id
             date
             currency
-            status
         }
     }
 `;
@@ -135,7 +137,12 @@ const AdminPanel = () => {
         <Fragment>
             {tokendata && tokendata.userType === 'admin' ? (
                 <Fragment>
-                    <Query query={GET_TRANSACTIONS}>
+                    <Query
+                        query={GET_TRANSACTIONS_OF_MY_PRODUCTS}
+                        variables={{
+                            owner_user_id: uid,
+                        }}
+                    >
                         {({ data: dat }) => (
                             <Fragment>
                                 <h1>Transactions</h1>
@@ -156,8 +163,8 @@ const AdminPanel = () => {
                                             <th>Actions</th>
                                         </tr>
                                         {dat &&
-                                            dat.transactions &&
-                                            dat.transactions.map(
+                                            dat.user_my_products_transactions &&
+                                            dat.user_my_products_transactions.map(
                                                 (transaction) => (
                                                     <tr>
                                                         <td>
