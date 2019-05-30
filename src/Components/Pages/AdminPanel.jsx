@@ -129,6 +129,7 @@ const uid = localStorage.getItem('CUR_USER');
 
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
+    console.log("authtoken===",authToken);
     var tokendata = parseJWT(authToken);
     if (tokendata && tokendata.userType)
         console.log('usrType', tokendata.userType);

@@ -44,10 +44,7 @@ function parseJWT(token) {
 }
 
 const Login = () => {
-    if (localStorage.getItem('AUTH_TOKEN')) {
-        console.log('Removing expired token');
-        localStorage.removeItem('AUTH_TOKEN');
-    }
+   
     return (
         <div className="grid">
             <div className="grid__item grid__item--sm-span-6">
@@ -103,8 +100,7 @@ const Login = () => {
                                 ) {
                                     console.log('Login:', 'Successful');
 
-                                    if (localStorage.getItem('AUTH_TOKEN'))
-                                        localStorage.removeItem('AUTH_TOKEN');
+                                  
 
                                     localStorage.setItem(
                                         'AUTH_TOKEN',
@@ -116,11 +112,9 @@ const Login = () => {
                                     );
                                     console.log('JWT DATA ==== >>', tokendata);
 
-                                    if (localStorage.getItem('CUR_USERNAME'))
-                                        localStorage.removeItem('CUR_USERNAME');
+                           
 
-                                    if (localStorage.getItem('CUR_USER'))
-                                        localStorage.removeItem('CUR_USER');
+                                    
 
                                     localStorage.setItem(
                                         'CUR_USERNAME',
