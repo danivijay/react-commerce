@@ -47,7 +47,7 @@ console.log('CurDate::', curDateString);
 
 const Cards = ({ product }) => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
-    console.log('token===>', authToken);
+   // console.log('token===>', authToken);
     console.log('product====>', product);
 
     const [quantity, setQuantity] = useState(1);
