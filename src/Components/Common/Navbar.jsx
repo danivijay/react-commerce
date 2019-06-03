@@ -25,7 +25,15 @@ const Navbar = () => {
             <ul className="menu__row">
                 {tokendata ? (
                     <li className="menu__list">
-                        <a className="menu__link">Logout</a>
+                        <a
+                            className="menu__link"
+                            onClick={() => {
+                                localStorage.removeItem('AUTH_TOKEN');
+                                window.location = '/login-signup';
+                            }}
+                        >
+                            Logout
+                        </a>
                     </li>
                 ) : (
                     <li className="menu__list">
