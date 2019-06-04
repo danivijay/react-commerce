@@ -23,11 +23,25 @@ const Navbar = () => {
             </a>
 
             <ul className="menu__row">
-                <li className="menu__list">
-                    <a href="/login-signup" className="menu__link">
-                        Login
-                    </a>
-                </li>
+                {tokendata ? (
+                    <li className="menu__list">
+                        <a
+                            className="menu__link"
+                            onClick={() => {
+                                localStorage.removeItem('AUTH_TOKEN');
+                                window.location = '/login-signup';
+                            }}
+                        >
+                            Logout
+                        </a>
+                    </li>
+                ) : (
+                    <li className="menu__list">
+                        <a href="/login-signup" className="menu__link">
+                            Login
+                        </a>
+                    </li>
+                )}
                 {tokendata && tokendata.userType === 'admin' ? (
                     <li className="menu__list">
                         <a href="/admin" className="menu__link">

@@ -73,10 +73,11 @@ const MyProducts = () => {
                         }}
                     >
                         {({ data: dat }) =>
-                            console.log(
-                                'data===>',
-                                dat.user_my_products_transactions,
-                            ) || (
+                            (dat &&
+                                console.log(
+                                    'data===>',
+                                    dat.user_my_products_transactions,
+                                )) || (
                                 <Fragment>
                                     <h1>My Products</h1>
                                     <table className="admintable">

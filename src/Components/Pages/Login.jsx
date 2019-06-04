@@ -44,7 +44,12 @@ function parseJWT(token) {
 }
 
 const Login = () => {
-   
+    var tokendata = localStorage.getItem('AUTH_TOKEN');
+    if (tokendata) {
+        console.log('Tokendata==>>', tokendata);
+        window.location = '/';
+    }
+
     return (
         <div className="grid">
             <div className="grid__item grid__item--sm-span-6">
@@ -100,8 +105,6 @@ const Login = () => {
                                 ) {
                                     console.log('Login:', 'Successful');
 
-                                  
-
                                     localStorage.setItem(
                                         'AUTH_TOKEN',
                                         data.login.password,
@@ -111,10 +114,6 @@ const Login = () => {
                                         data.login.password,
                                     );
                                     console.log('JWT DATA ==== >>', tokendata);
-
-                           
-
-                                    
 
                                     localStorage.setItem(
                                         'CUR_USERNAME',
