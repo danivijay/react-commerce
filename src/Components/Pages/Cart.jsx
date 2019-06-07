@@ -109,7 +109,9 @@ const Cart = () => {
                                     console.log('product', data) || (
                                         <Fragment>
                                             {data &&
-                                                data.incarttransactions &&
+                                            data.incarttransactions &&
+                                            data.incarttransactions.length !==
+                                                0 ? (
                                                 data.incarttransactions.map(
                                                     (incarttransaction) => (
                                                         <Fragment>
@@ -176,7 +178,12 @@ const Cart = () => {
                                                             </Fragment>
                                                         </Fragment>
                                                     ),
-                                                )}
+                                                )
+                                            ) : (
+                                                <Fragment>
+                                                    <h1>Cart is empty!!!</h1>
+                                                </Fragment>
+                                            )}
                                         </Fragment>
                                     )
                                 }
