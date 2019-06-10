@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../App.scss';
 import Cards from '../Common/Cards';
 import Hero from '../Common/Hero';
@@ -9,8 +9,8 @@ import gql from 'graphql-tag';
 import jwt from 'jsonwebtoken';
 
 const GET_PRODUCTS = gql`
-    {
-        products {
+    query products($criteria: Int!) {
+        products(criteria: $criteria) {
             id
             name
             price
@@ -20,6 +20,9 @@ const GET_PRODUCTS = gql`
     }
 `;
 
+if (!localStorage.getItem('CRITERIA')) localStorage.setItem('CRITERIA', 0);
+console.log('criteria===>', localStorage.getItem('CRITERIA'));
+const CRITERIA = parseInt(localStorage.getItem('CRITERIA'));
 const Home = () => {
     //Token expiry verification
     var tokenisExpired = false;
@@ -39,13 +42,18 @@ const Home = () => {
 
     return (
         //if the token is expired then there won't be any data, so the expired token is removed and then the query is executing successfully
-        <Query query={GET_PRODUCTS}>
+
+        <Query
+            query={GET_PRODUCTS}
+            variables={{
+                criteria: CRITERIA,
+            }}
+        >
             {({ data }) =>
                 console.log(data) || (
                     <div>
                         <Hero />
                         <Filterbar />
-
                         {/* <div className="grid">
                         {!(tokenisExpired) && data && data.products &&
                             data.products.length === 0 ? (
