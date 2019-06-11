@@ -129,7 +129,7 @@ const uid = localStorage.getItem('CUR_USER');
 
 const AdminPanel = () => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
-    console.log("authtoken===",authToken);
+    console.log('authtoken===', authToken);
     var tokendata = parseJWT(authToken);
     if (tokendata && tokendata.userType)
         console.log('usrType', tokendata.userType);
@@ -428,9 +428,32 @@ const AdminPanel = () => {
                                                                 {product.stock}
                                                             </td>
                                                             <td>
-                                                                <a href="/addoredit">
-                                                                    <button>
-                                                                        Add
+                                                                <a>
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            localStorage.setItem(
+                                                                                'EDIT_MODE',
+                                                                                product.id,
+                                                                            );
+
+                                                                            localStorage.setItem(
+                                                                                'PRODUCT_NAME',
+                                                                                product.name,
+                                                                            );
+                                                                            localStorage.setItem(
+                                                                                'PRODUCT_PRICE',
+                                                                                product.price,
+                                                                            );
+                                                                            localStorage.setItem(
+                                                                                'PRODUCT_STOCK',
+                                                                                product.stock,
+                                                                            );
+
+                                                                            window.location =
+                                                                                '/addoredit';
+                                                                        }}
+                                                                    >
+                                                                        Edit
                                                                     </button>
                                                                 </a>
                                                                 <ApolloConsumer>
@@ -466,6 +489,10 @@ const AdminPanel = () => {
                                     </table>
                                     <button
                                         onClick={() => {
+                                            localStorage.setItem(
+                                                'EDIT_MODE',
+                                                'false',
+                                            );
                                             window.location = '/AddorEdit';
                                         }}
                                     >
