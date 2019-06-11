@@ -20,9 +20,11 @@ const GET_PRODUCTS = gql`
     }
 `;
 
+// storing the value of criteria to zero, if the website is loaded for first time. the value of criteria determine which type of sorting is to be done.
 if (!localStorage.getItem('CRITERIA')) localStorage.setItem('CRITERIA', 0);
 console.log('criteria===>', localStorage.getItem('CRITERIA'));
 const CRITERIA = parseInt(localStorage.getItem('CRITERIA'));
+
 const Home = () => {
     //Token expiry verification
     var tokenisExpired = false;
