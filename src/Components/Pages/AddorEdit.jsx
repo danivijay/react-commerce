@@ -86,7 +86,14 @@ const AddorEdit = () => {
                         // onCompleted={(data) => this._confirm(data)}
                         // onCompleted={(data) => console.log('data::', data)}
                         onCompleted={(data) => {
-                            window.alert('Product has been added successfully');
+                            if (localStorage.getItem('EDIT_MODE') !== 'false')
+                                window.alert(
+                                    'Product has been updated successfully',
+                                );
+                            else
+                                window.alert(
+                                    'Product has been added successfully',
+                                );
                             window.location = '/admin';
                         }}
                     >
@@ -130,7 +137,7 @@ const AddorEdit = () => {
                                             className="btn1"
                                             onClick={mutation}
                                         >
-                                            Add Product
+                                            Add / Edit Product
                                         </button>
                                     </Fragment>
                                 ) : (
@@ -160,7 +167,7 @@ const AddorEdit = () => {
                                             className="btn1"
                                             onClick={mutation}
                                         >
-                                            Add Product
+                                            Add / Edit Product
                                         </button>
                                     </Fragment>
                                 )}
