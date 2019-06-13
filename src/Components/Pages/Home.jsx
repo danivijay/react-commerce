@@ -8,9 +8,25 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import jwt from 'jsonwebtoken';
 
+// const GET_PRODUCTS = gql`
+//     query products($criteria: Int!) {
+//         products(criteria: $criteria) {
+//             id
+//             name
+//             price
+//             stock
+//             owner_user_id
+//         }
+//     }
+// `;
+
 const GET_PRODUCTS = gql`
-    query products($criteria: Int!) {
-        products(criteria: $criteria) {
+    query products($criteria: Int!, $searchmode: Int!, $searchitem: String!) {
+        products(
+            criteria: $criteria
+            searchmode: $searchmode
+            searchitem: $searchitem
+        ) {
             id
             name
             price
@@ -24,6 +40,14 @@ const GET_PRODUCTS = gql`
 if (!localStorage.getItem('CRITERIA')) localStorage.setItem('CRITERIA', 0);
 console.log('criteria===>', localStorage.getItem('CRITERIA'));
 const CRITERIA = parseInt(localStorage.getItem('CRITERIA'));
+
+if (!localStorage.getItem('SEARCHMODE')) localStorage.setItem('SEARCHMODE', 0);
+console.log('searchmode===>', localStorage.getItem('SEARCHMODE'));
+const SEARCHMODE = parseInt(localStorage.getItem('SEARCHMODE'));
+
+if (!localStorage.getItem('SEARCHITEM')) localStorage.setItem('SEARCHITEM', '');
+console.log('searchitem===>', localStorage.getItem('SEARCHITEM'));
+const SEARCHITEM = localStorage.getItem('SEARCHITEM');
 
 const Home = () => {
     //Token expiry verification
@@ -49,6 +73,8 @@ const Home = () => {
             query={GET_PRODUCTS}
             variables={{
                 criteria: CRITERIA,
+                searchmode: SEARCHMODE,
+                searchitem: SEARCHITEM,
             }}
         >
             {({ data }) =>
