@@ -13,22 +13,43 @@ const LOGIN_MUTATION = gql`
         }
     }
 `;
-
 const SIGNUP_MUTATION = gql`
     mutation Createuser(
         $userName: String!
         $password: String!
         $email: String!
+        $userType: String!
     ) {
-        user(userName: $userName, password: $password, email: $email) {
+        user(
+            userName: $userName
+            password: $password
+            email: $email
+            userType: $userType
+        ) {
             userName
             email
             password
+            userType
         }
     }
 `;
 
+function parseJWT(token) {
+    if (!token) {
+        return;
+    }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+}
+
 const Login = () => {
+    var tokendata = localStorage.getItem('AUTH_TOKEN');
+    if (tokendata) {
+        console.log('Tokendata==>>', tokendata);
+        window.location = '/';
+    }
+
     return (
         <div className="grid">
             <div className="grid__item grid__item--sm-span-6">
@@ -50,6 +71,9 @@ const Login = () => {
                     // }}
                     onSubmit={(values, { setSubmitting }) => {
                         console.log('submitted values::', values);
+                        // CUR_USER = values.userName;
+
+                        // localStorage.setItem('CUR_USER', CUR_USER);
                         // setTimeout(() => {
                         //     alert(JSON.stringify(values, null, 2));
                         //     setSubmitting(false);
@@ -68,15 +92,50 @@ const Login = () => {
                     }) => (
                         <Mutation
                             mutation={LOGIN_MUTATION}
-                            variables={{ userName, password }}
+                            variables={{
+                                userName,
+                                password,
+                            }}
                             // onCompleted={(data) => this._confirm(data)}
                             onCompleted={(data) => {
+                                console.log('Data==>', data);
                                 if (
-                                    data.login.userName === 'admin' &&
-                                    data.login.password === 'ecart'
+                                    data.login.userName !==
+                                    'incorrect username or password'
                                 ) {
                                     console.log('Login:', 'Successful');
-                                    window.location = '/admin';
+
+                                    localStorage.setItem(
+                                        'AUTH_TOKEN',
+                                        data.login.password,
+                                    );
+
+                                    var tokendata = parseJWT(
+                                        data.login.password,
+                                    );
+                                    console.log('JWT DATA ==== >>', tokendata);
+
+                                    localStorage.setItem(
+                                        'CUR_USERNAME',
+                                        tokendata.userName,
+                                    );
+                                    localStorage.setItem(
+                                        'CUR_USER',
+                                        data.login.userName,
+                                    );
+
+                                    console.log(
+                                        'retrievedtoken:',
+                                        localStorage.getItem('AUTH_TOKEN'),
+                                    );
+
+                                    if (tokendata.userType === 'admin')
+                                        window.location = '/admin';
+                                    else window.location = '/';
+                                } else {
+                                    window.alert(
+                                        'Incorrect username or password',
+                                    );
                                 }
                             }}
                         >
@@ -122,11 +181,30 @@ const Login = () => {
                         handleSubmit,
                         isSubmitting,
                         /* and other goodies */
-                    }) => (
+                      }) => (
                         <Mutation
                             mutation={SIGNUP_MUTATION}
-                            variables={{ userName, password, email }}
-                            onCompleted={(data) => console.log('Data:', data)}
+                            variables={{
+                                userName,
+                                password,
+                                email,
+                                userType: 'buyer',
+                            }}
+                            onCompleted={(data) => {
+                                console.log('Data:', data);
+
+                                if (
+                                    data.user.userName === '' ||
+                                    data.user.userType === '' ||
+                                    data.user.email === '' ||
+                                    data.user.password === ''
+                                )
+                                    window.alert('All fields are mandatory');
+                                else {
+                                    window.alert('Sign up Successful');
+                                    window.location = '/login-signup';
+                                }
+                            }}
                         >
                             {(mutation) => (
                                 <Fragment>
