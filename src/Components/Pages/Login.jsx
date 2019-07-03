@@ -181,7 +181,7 @@ const Login = () => {
                         handleSubmit,
                         isSubmitting,
                         /* and other goodies */
-                    }) => (
+                      }) => (
                         <Mutation
                             mutation={SIGNUP_MUTATION}
                             variables={{

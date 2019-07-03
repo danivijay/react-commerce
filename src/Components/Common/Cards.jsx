@@ -45,9 +45,9 @@ var curDateString = `${curDate.getMonth() +
 
 console.log('CurDate::', curDateString);
 
-const Cards = ({ product }) => {
+const Cards = ({ product, searchitem }) => {
     const authToken = localStorage.getItem('AUTH_TOKEN');
-   // console.log('token===>', authToken);
+    // console.log('token===>', authToken);
     console.log('product====>', product);
 
     const [quantity, setQuantity] = useState(1);
@@ -63,86 +63,93 @@ const Cards = ({ product }) => {
     };
 
     return (
-        <div class="cards">
-            <article class="card">
-                <div class="card__top">
-                    <img src="https://picsum.photos/250/200?random" alt="" />
-                </div>
-                <div class="card__bottom">
-                    <h1 class="card__heading">{product.name}</h1>
-                    <h1 class="card__description">Rs {product.price}</h1>
-                </div>
-                <div class="card__footer">
-                    <div class="grid">
-                        <div class="grid__item grid__item--sm-span-1">
-                            <input
-                                class="input"
-                                type="number"
-                                name="quantity"
-                                value={quantity}
-                            />
-                        </div>
-                        <div class="grid__item grid__item--sm-span-1">
-                            <button
-                                class="smallbtn smallbtn--inc"
-                                onClick={handleQuantityIncrement}
-                            />
-                            <button
-                                class="smallbtn smallbtn--dec"
-                                onClick={handleQuantityDecrement}
-                            />
-                        </div>
+        localStorage.getItem('SEARCHITE') && (
+            <div class="cards">
+                <article class="card">
+                    <div class="card__top">
+                        <img
+                            src="https://picsum.photos/250/200?random"
+                            alt=""
+                        />
+                    </div>
+                    <div class="card__bottom">
+                        <h1 class="card__heading">{product.name}</h1>
+                        <h1 class="card__description">Rs {product.price}</h1>
+                    </div>
+                    <div class="card__footer">
+                        <div class="grid">
+                            <div class="grid__item grid__item--sm-span-1">
+                                <input
+                                    class="input"
+                                    type="number"
+                                    name="quantity"
+                                    value={quantity}
+                                />
+                            </div>
+                            <div class="grid__item grid__item--sm-span-1">
+                                <button
+                                    class="smallbtn smallbtn--inc"
+                                    onClick={handleQuantityIncrement}
+                                />
+                                <button
+                                    class="smallbtn smallbtn--dec"
+                                    onClick={handleQuantityDecrement}
+                                />
+                            </div>
 
-                        <div class="grid__item grid__item--sm-span-5">
-                            <Mutation mutation={TRANSACTION_MUTATION}>
-                                {(
-                                    Createtransaction,
-                                    { data, loading, error },
-                                ) => {
-                                    return (
-                                        <button
-                                            onClick={() => {
-                                                {
-                                                    authToken
-                                                        ? Createtransaction({
-                                                              variables: {
-                                                                  quantity: quantity,
-                                                                  user_id: userid,
-                                                                  date: curDateString,
-                                                                  product_id:
-                                                                      product.id,
-                                                                  currency:
-                                                                      'INR',
-                                                                  status:
-                                                                      'inCart',
-                                                                  owner_user_id:
-                                                                      product.owner_user_id,
-                                                              },
-                                                          }).then((res) => {
-                                                              if (
-                                                                  window.alert(
-                                                                      product.name +
-                                                                          ' has successfully added to the cart',
-                                                                  )
+                            <div class="grid__item grid__item--sm-span-5">
+                                <Mutation mutation={TRANSACTION_MUTATION}>
+                                    {(
+                                        Createtransaction,
+                                        { data, loading, error },
+                                    ) => {
+                                        return (
+                                            <button
+                                                onClick={() => {
+                                                    {
+                                                        authToken
+                                                            ? Createtransaction(
+                                                                  {
+                                                                      variables: {
+                                                                          quantity: quantity,
+                                                                          user_id: userid,
+                                                                          date: curDateString,
+                                                                          product_id:
+                                                                              product.id,
+                                                                          currency:
+                                                                              'INR',
+                                                                          status:
+                                                                              'inCart',
+                                                                          owner_user_id:
+                                                                              product.owner_user_id,
+                                                                      },
+                                                                  },
+                                                              ).then((res) => {
+                                                                  if (
+                                                                      window.alert(
+                                                                          product.name +
+                                                                              ' has successfully added to the cart',
+                                                                      )
+                                                                  );
+                                                              })
+                                                            : window.alert(
+                                                                  'You need to login first',
                                                               );
-                                                          })
-                                                        : window.alert(
-                                                              'You need to login first',
-                                                          );
-                                                }
-                                            }}
-                                            class="btn btn--pad-20 btn--uppercase btn--secondary btn--right-float"
-                                        >
-                                            Add to Cart
-                                        </button>
-                                    );
-                                }}
-                            </Mutation>
+                                                    }
+                                                }}
+                                                class="btn btn--pad-20 btn--uppercase btn--secondary btn--right-float"
+                                            >
+                                                Add to Cart
+                                            </button>
+                                        );
+                                    }}
+                                </Mutation>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </article>
-        </div>
+                </article>
+            </div>
+        )
     );
 };
 
